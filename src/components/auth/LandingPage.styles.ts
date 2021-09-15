@@ -44,12 +44,14 @@ export const Wrapper = styled.div`
         font-size: 1.1em;
         font-family: Montserrat, sans-serif;
         font-weight: 600;
+        cursor: pointer;
     }
 
-    p {
+    a {
         font-size: 0.7em;
         color: whitesmoke;
         text-decoration: underline;
-        padding-top: 0.5em;
+        padding-top: 1.25em;
+        cursor: pointer;
     }
 `;
