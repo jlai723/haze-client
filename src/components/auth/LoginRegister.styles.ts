@@ -4,9 +4,9 @@ export const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     font-family: Montserrat, sans-serif;
-    padding-top: 2em;
+    padding-top: 3.5em;
+    padding-bottom: 3.5em;
     margin: 0;
-    padding: 0;
     max-width: 100%;
 
     h2 {
@@ -34,8 +34,16 @@ export const Wrapper = styled.div`
         border: none;
         border-bottom: 0.25em solid rgba(107,129,117,1);
         background: none;
-        padding-top: 1em;
-        padding-bottom: 1em;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+        font-family: Montserrat, sans-serif;
+        font-size: 0.8em;
+        font-weight: 500;
+        color: rgba(107,129,117,1);
+    }
+
+    input:focus {
+        outline: none;
     }
 
     button {
