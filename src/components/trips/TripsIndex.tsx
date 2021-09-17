@@ -12,6 +12,7 @@ type TripsIndexState = {
     tripEndDate: string,
     tripImage: string,
     tripNotes: string,
+    showModal: boolean,
 };
 
 export class TripsIndex extends Component <TripsIndexProps, TripsIndexState> {
@@ -23,13 +24,20 @@ export class TripsIndex extends Component <TripsIndexProps, TripsIndexState> {
             tripEndDate: '',
             tripImage: '',
             tripNotes: '',
+            showModal: false,
         }
+    }
+
+    toggleModal = () => {
+        this.setState({
+            showModal: !this.state.showModal,
+        })
     }
 
     render(){
         return(
             <div>
-                <button>add</button>
+                <button onClick={this.toggleModal}>add</button>
                 <TripCreate 
                     token={this.props.sessionToken}
                     name={this.state.tripName}
@@ -42,6 +50,8 @@ export class TripsIndex extends Component <TripsIndexProps, TripsIndexState> {
                     setEDate={this.setEDate}
                     setImage={this.setImage}
                     setNotes={this.setNotes}
+                    showModal={this.state.showModal}
+                    toggleModal={this.toggleModal}
                 />
                 <TripCards token={this.props.sessionToken} />
             </div>
