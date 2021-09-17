@@ -40,7 +40,7 @@ export class Login extends Component <LoginProps, LoginState> {
                     <label>username</label>
                     <input required onChange={(e) => {this.props.setUsername(e.target.value)}}></input>
                     <label>password</label>
-                    <input required onChange={(e) => {this.props.setPassword(e.target.value)}}></input>
+                    <input required type="password" onChange={(e) => {this.props.setPassword(e.target.value)}}></input>
                     <button type="submit">login</button>
                 </form>
                 <a onClick={this.props.toggleToRegister}>don't have an account?</a>

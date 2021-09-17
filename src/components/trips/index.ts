@@ -1,5 +1,5 @@
-import { TripCards } from './TripCards';
+import { TripsIndex } from './TripsIndex';
 
 export {
-    TripCards,
+    TripsIndex,
 }

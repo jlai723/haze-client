@@ -3,8 +3,7 @@ import './App.css';
 
 import { Header, Footer } from './components/common';
 import { Portal } from './components/auth';
-import { LandingPage } from './components/auth/LandingPage';
-import { TripCards } from './components/trips';
+import { TripsIndex } from './components/trips';
 
 type AppProps = {};
 type AppState = {
@@ -46,7 +45,7 @@ class App extends Component<AppProps, AppState> {
     return (
       <div className="App">
         <Header logout={this.clearToken} />
-        {(this.state.sessionToken === localStorage.getItem('token')) ? <TripCards sessionToken={this.state.sessionToken} /> : <Portal updateToken={this.updateToken} />}
+        {(this.state.sessionToken === localStorage.getItem('token')) ? <TripsIndex sessionToken={this.state.sessionToken} /> : <Portal updateToken={this.updateToken} />}
         <Footer />
       </div>
     );
