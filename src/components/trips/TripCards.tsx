@@ -1,57 +1,36 @@
 import React, { Component } from 'react';
 
+import trips from '../types/tripType';
+
 type TripCardsProps = {
-    token: string | null,
-}
-
-type TripCardsState = {
+    fetchTrips(): void,
     tripData: trips[] | [],
-}
-type trips = {
-    createdAt: string
-    id: number
-    parks: park[] | []
-    tripEndDate: string
-    tripImage: string
-    tripName: string
-    tripNotes: string
-    tripStartDate: string
-    updatedAt: string
-    userId: number
-}
-type park = {
-
-}
+    token: string | null,
+    updateTrip(tripId: number): void,
+    updateOn(): void,
+    toggleEditModal(): void,
+    deleteTrip(): void,
+};
+type TripCardsState = {};
 
 export class TripCards extends Component<TripCardsProps, TripCardsState> {
     constructor(props: TripCardsProps) {
         super(props);
-        this.state = {
-            tripData: [],
-        }
     }
 
     componentDidMount() {
-        this.fetchTrips();
+        this.props.fetchTrips();
     }
 
-    fetchTrips = () => {
-        fetch("http://localhost:3000/trip/all", {
-            method: 'GET',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${this.props.token}`
-            })
-        }).then((res) => res.json())
-            .then((tripData) => this.setState({
-                tripData: tripData,
-            }))
+    editBtn = () => {
+        this.props.updateOn();
+        this.props.toggleEditModal();
     }
 
     render() {
         return (
             <div>
-                {this.state.tripData.map((trip) => {
+                {this.props.tripData.map((trip) => {
                     return (
                         <div>
                             <h3>{trip.tripName}</h3>
@@ -59,6 +38,9 @@ export class TripCards extends Component<TripCardsProps, TripCardsState> {
                             <div>
                                 <p>{trip.parks}</p>
                             </div>
+                            <button>view</button>
+                            <button onClick={() => {this.props.updateTrip(trip.id); this.editBtn()}}>edit</button>
+                            <button onClick={() => {this.props.updateTrip(trip.id); this.props.deleteTrip()}}>delete</button>
                         </div>
                     )
                 })}

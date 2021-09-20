@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import { TripCreate } from './TripCreate';
 import { TripCards } from './TripCards';
+import { TripEdit } from './TripEdit';
+import trips from '../types/tripType';
 
 type TripsIndexProps = {
     sessionToken: string | null,
@@ -12,10 +14,14 @@ type TripsIndexState = {
     tripEndDate: string,
     tripImage: string,
     tripNotes: string,
-    showModal: boolean,
+    showAddModal: boolean,
+    showEditModal: boolean,
+    updateActive: boolean,
+    tripToUpdate: number,
+    tripData: trips[] | [],
 };
 
-export class TripsIndex extends Component <TripsIndexProps, TripsIndexState> {
+export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
     constructor(props: TripsIndexProps) {
         super(props);
         this.state = {
@@ -24,21 +30,54 @@ export class TripsIndex extends Component <TripsIndexProps, TripsIndexState> {
             tripEndDate: '',
             tripImage: '',
             tripNotes: '',
-            showModal: false,
+            showAddModal: false,
+            showEditModal: false,
+            updateActive: false,
+            tripToUpdate: 0,
+            tripData: [],
         }
     }
 
-    toggleModal = () => {
+    toggleAddModal = () => {
         this.setState({
-            showModal: !this.state.showModal,
+            showAddModal: !this.state.showAddModal,
+        })
+    }
+    toggleEditModal = () => {
+        this.setState({
+            showEditModal: !this.state.showEditModal,
         })
     }
 
-    render(){
-        return(
+    fetchTrips = () => {
+        fetch("http://localhost:3000/trip/all", {
+            method: 'GET',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.props.sessionToken}`
+            })
+        }).then((res) => res.json())
+            .then((tripData) => this.setState({
+                tripData: tripData,
+            }))
+    }
+
+    deleteTrip = () => {
+        fetch(`http://localhost:3000/trip/delete/${this.state.tripToUpdate}`, {
+            method: 'DELETE',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.props.sessionToken}`
+            })
+        }).then(() => this.fetchTrips())
+    }
+
+
+    render() {
+        return (
             <div>
-                <button onClick={this.toggleModal}>add</button>
-                <TripCreate 
+                <button onClick={this.toggleAddModal}>add</button>
+                <TripCreate
                     token={this.props.sessionToken}
                     name={this.state.tripName}
                     startDate={this.state.tripStartDate}
@@ -50,10 +89,38 @@ export class TripsIndex extends Component <TripsIndexProps, TripsIndexState> {
                     setEDate={this.setEDate}
                     setImage={this.setImage}
                     setNotes={this.setNotes}
-                    showModal={this.state.showModal}
-                    toggleModal={this.toggleModal}
+                    showAddModal={this.state.showAddModal}
+                    toggleAddModal={this.toggleAddModal}
                 />
-                <TripCards token={this.props.sessionToken} />
+                <TripCards
+                    fetchTrips={this.fetchTrips}
+                    updateTrip={this.updateTrip}
+                    updateOn={this.updateOn}
+                    toggleEditModal={this.toggleEditModal}
+                    tripData={this.state.tripData}
+                    token={this.props.sessionToken}
+                    deleteTrip={this.deleteTrip}
+                />
+                {this.state.updateActive
+                    ? <TripEdit
+                        tripToUpdate={this.state.tripToUpdate}
+                        updateOff={this.updateOff}
+                        token={this.props.sessionToken}
+                        name={this.state.tripName}
+                        startDate={this.state.tripStartDate}
+                        endDate={this.state.tripEndDate}
+                        image={this.state.tripImage}
+                        notes={this.state.tripNotes}
+                        setName={this.setName}
+                        setSDate={this.setSDate}
+                        setEDate={this.setEDate}
+                        setImage={this.setImage}
+                        setNotes={this.setNotes}
+                        showEditModal={this.state.showEditModal}
+                        toggleEditModal={this.toggleEditModal}
+                        fetchTrips={this.fetchTrips}
+                    />
+                    : <></>}
             </div>
         )
     }
@@ -72,5 +139,15 @@ export class TripsIndex extends Component <TripsIndexProps, TripsIndexState> {
     }
     setNotes = (newNotes: string) => {
         this.setState({ tripNotes: newNotes })
+    }
+
+    updateTrip = (tripId: number) => {
+        this.setState({ tripToUpdate: tripId })
+    }
+    updateOn = () => {
+        this.setState({ updateActive: true })
+    }
+    updateOff = () => {
+        this.setState({ updateActive: false })
     }
 }

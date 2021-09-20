@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Background, ModalWrapper, ModalContent, CloseModalBtn } from './TripCreate.styles';
+import { Background, ModalWrapper, ModalContent, CloseModalBtn } from './TripCreateEdit.styles';
 
 type TripCreateProps = {
     token: string | null,
@@ -14,8 +14,8 @@ type TripCreateProps = {
     setEDate(newEDate: string): void,
     setImage(newImage: string): void,
     setNotes(newNotes: string): void,
-    showModal: boolean,
-    toggleModal(): void,
+    showAddModal: boolean,
+    toggleAddModal(): void,
 }
 
 export class TripCreate extends Component<TripCreateProps, {}> {
@@ -50,14 +50,14 @@ export class TripCreate extends Component<TripCreateProps, {}> {
 
     closeModal = (e: React.FormEvent) => {
         if (this.myRef.current === e.target) {
-            this.props.toggleModal();
+            this.props.toggleAddModal();
         }
     }
 
     render() {
         return (
             <>
-                {this.props.showModal ? (
+                {this.props.showAddModal ? (
                     <Background ref={this.myRef} onClick={this.closeModal}>
                         <ModalWrapper>
                             <ModalContent>
@@ -85,7 +85,7 @@ export class TripCreate extends Component<TripCreateProps, {}> {
                                     <button type="submit">add</button>
                                 </form>
                             </ModalContent>
-                            <CloseModalBtn aria-label="Close Modal" onClick={this.props.toggleModal} />
+                            <CloseModalBtn aria-label="Close Modal" onClick={this.props.toggleAddModal} />
                         </ModalWrapper>
                     </Background>
                 )
