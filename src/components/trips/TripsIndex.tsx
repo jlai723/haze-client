@@ -3,8 +3,21 @@ import React, { Component } from 'react';
 import { TripCreate } from './TripCreate';
 import { TripCards } from './TripCards';
 import { TripEdit } from './TripEdit';
-import trips from '../types/tripType';
+import { trips } from '../types/tripType';
+import { park } from '../types/parkType';
 
+interface TripObj {
+    createdAt: string;
+    id: number;
+    parks: park[] | [];
+    tripEndDate: string;
+    tripImage: string;
+    tripName: string;
+    tripNotes: string;
+    tripStartDate: string;
+    updatedAt: string;
+    userId: number;
+};
 type TripsIndexProps = {
     sessionToken: string | null,
 };
@@ -19,6 +32,7 @@ type TripsIndexState = {
     updateActive: boolean,
     tripToUpdate: number,
     tripData: trips[] | [],
+    oneTrip: TripObj,
 };
 
 export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
@@ -35,6 +49,18 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
             updateActive: false,
             tripToUpdate: 0,
             tripData: [],
+            oneTrip: {
+                createdAt: "",
+                id: 0,
+                parks: [],
+                tripEndDate: "",
+                tripImage: "",
+                tripName: "",
+                tripNotes: "",
+                tripStartDate: "",
+                updatedAt: "",
+                userId: 0,
+            },
         }
     }
 
@@ -62,6 +88,21 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
             }))
     }
 
+    fetchOneTrip = () => {
+        fetch(`http://localhost:3000/trip/${this.state.tripToUpdate}`, {
+            method: 'GET',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.props.sessionToken}`
+            })
+        }).then((res) => res.json())
+            .then((oneTrip) => {
+                if (oneTrip !== null) this.setState({
+                    oneTrip: oneTrip,
+                })
+            })
+    }
+
     deleteTrip = () => {
         fetch(`http://localhost:3000/trip/delete/${this.state.tripToUpdate}`, {
             method: 'DELETE',
@@ -71,7 +112,6 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
             })
         }).then(() => this.fetchTrips())
     }
-
 
     render() {
         return (
@@ -94,12 +134,15 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
                 />
                 <TripCards
                     fetchTrips={this.fetchTrips}
+                    tripToUpdate={this.state.tripToUpdate}
                     updateTrip={this.updateTrip}
                     updateOn={this.updateOn}
                     toggleEditModal={this.toggleEditModal}
                     tripData={this.state.tripData}
                     token={this.props.sessionToken}
                     deleteTrip={this.deleteTrip}
+                    fetchOneTrip={this.fetchOneTrip}
+                    oneTrip={this.state.oneTrip}
                 />
                 {this.state.updateActive
                     ? <TripEdit

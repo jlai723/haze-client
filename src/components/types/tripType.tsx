@@ -12,5 +12,3 @@ export type trips = {
     updatedAt: string
     userId: number
 }
-
-export default trips;

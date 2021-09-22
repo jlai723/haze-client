@@ -44,9 +44,9 @@ class App extends Component<AppProps, AppState> {
   render() {
     return (
       <div className="App">
-        <Header logout={this.clearToken} />
+        {/* <Header logout={this.clearToken} /> */}
         {(this.state.sessionToken === localStorage.getItem('token')) ? <TripsIndex sessionToken={this.state.sessionToken} /> : <Portal updateToken={this.updateToken} />}
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
   }
