@@ -9,12 +9,14 @@ type ParkDisplayProps = {
     currentView: string,
     tripId: number,
     token: string | null,
+    fetchOneTrip(): void,
 }
 type ParkDisplayState = {
     selectedParkName: string,
     selectedParkAddress: string,
     selectedParkImage: string,
     parkImgAlt: string,
+    parkCode: string,
 }
 
 export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
@@ -25,6 +27,7 @@ export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
             selectedParkAddress: '',
             selectedParkImage: '',
             parkImgAlt: '',
+            parkCode: '',
         }
     }
 
@@ -48,6 +51,11 @@ export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
             parkImgAlt: selectImgAlt,
         })
     }
+    selectparkCode = (selectParkCode: string) => {
+        this.setState({
+            parkCode: selectParkCode,
+        })
+    }
 
     render() {
         return (
@@ -64,6 +72,8 @@ export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
                                     this.selectParkName(park.fullName.toLowerCase());
                                     this.selectParkAddress(`${park.addresses[0].line1.toLowerCase()}, ${park.addresses[0].city.toLowerCase()}, ${park.addresses[0].stateCode.toLowerCase()} ${park.addresses[0].postalCode}`);
                                     this.selectParkImage(park.images[0].url);
+                                    this.selectImgAlt(park.images[0].altText);
+                                    this.selectparkCode(park.parkCode);
                                 }}>view</button>
                                 <button onClick={() => {
                                     this.props.parkCreate();
@@ -71,6 +81,7 @@ export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
                                     this.selectParkAddress(`${park.addresses[0].line1.toLowerCase()}, ${park.addresses[0].city.toLowerCase()}, ${park.addresses[0].stateCode.toLowerCase()} ${park.addresses[0].postalCode}`);
                                     this.selectParkImage(park.images[0].url);
                                     this.selectImgAlt(park.images[0].altText);
+                                    this.selectparkCode(park.parkCode);
                                 }}>add to trip</button>
                             </div>
                         )
@@ -80,8 +91,10 @@ export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
                     parkAddress={this.state.selectedParkAddress}
                     parkImage={this.state.selectedParkImage}
                     parkImgAlt={this.state.parkImgAlt}
+                    parkCode={this.state.parkCode}
                     tripId={this.props.tripId}
                     token={this.props.token}
+                    fetchOneTrip={this.props.fetchOneTrip}
                     />
             }
             </div>

@@ -71,6 +71,7 @@ export class TripCards extends Component<TripCardsProps, TripCardsState> {
                     }) :
                     <TripView
                         fetchOneTrip={this.props.fetchOneTrip}
+                        fetchTrips={this.props.fetchTrips}
                         oneTrip={this.props.oneTrip}
                         token={this.props.token}
                         tripId={this.props.tripToUpdate}

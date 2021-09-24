@@ -5,8 +5,10 @@ type ParkCreateProps = {
     parkAddress: string,
     parkImage: string,
     parkImgAlt: string,
+    parkCode: string,
     tripId: number,
     token: string | null,
+    fetchOneTrip(): void,
 }
 type ParkCreateState = {
     parkSDate: string,
@@ -25,13 +27,14 @@ export class ParkCreate extends Component<ParkCreateProps, ParkCreateState> {
     }
 
     handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
+        // e.preventDefault();
         fetch(`http://localhost:3000/park/${this.props.tripId}/create`, {
             method: 'POST',
             body: JSON.stringify({
                 park: {
                     parkName: this.props.parkName,
                     parkAddress: this.props.parkAddress,
+                    parkCode: this.props.parkCode,
                     parkImage: this.props.parkImage,
                     parkStartDate: this.state.parkSDate,
                     parkEndDate: this.state.parkEDate,
@@ -51,7 +54,7 @@ export class ParkCreate extends Component<ParkCreateProps, ParkCreateState> {
                         'Authorization': `Bearer ${this.props.token}`,
                     })
                 }).then(res => res.json())
-                    .then(data => console.log(data))
+                    .then(() => this.props.fetchOneTrip())
             })
     }
 

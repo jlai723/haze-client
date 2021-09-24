@@ -8,6 +8,7 @@ type ParkSearchProps = {
     setQuery(newQuery: string): void,
     tripId: number,
     token: string | null,
+    fetchOneTrip(): void,
 };
 type ParkSearchClass = {
     queriedParks: natlPark[] | [],
@@ -62,6 +63,7 @@ export class ParkSearch extends Component<ParkSearchProps, ParkSearchClass> {
                         currentView={this.state.currentView}
                         tripId={this.props.tripId}
                         token={this.props.token}
+                        fetchOneTrip={this.props.fetchOneTrip}
                     />
                 </div>
             </div>

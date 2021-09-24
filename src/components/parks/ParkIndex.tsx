@@ -36,7 +36,6 @@ export class ParkIndex extends Component <{}, ParkIndexState> {
     render() {
         return(
             <div>
-                <ParkView />
             </div>
         )
     }
