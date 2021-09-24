@@ -23,14 +23,14 @@ export class ParkIndex extends Component <{}, ParkIndexState> {
         }
     }
 
-    componentDidMount() {
-        this.fetchNatlParks();
-    }
+    // componentDidMount() {
+    //     this.fetchNatlParks();
+    // }
 
     fetchNatlParks = () => {
         fetch(`https://developer.nps.gov/api/v1/parks?api_key=HhkxS8ZdTvnrdnu3zsQUEUzYbunbFcicTxvvQBPK`)
         .then(res => res.json())
-        .then(json => console.log(json[0]))
+        .then(json => console.log(json.data[0].description))
     }
 
     render() {

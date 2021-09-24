@@ -1,4 +1,4 @@
-import React, { Component, MouseEventHandler } from 'react';
+import React, { Component } from 'react';
 
 import { TripView } from './TripView';
 import { trips } from '../types/tripType';
@@ -27,16 +27,16 @@ type TripCardsProps = {
     deleteTrip(): void,
     fetchOneTrip(): void,
     oneTrip: TripObj,
+    currentView: string,
+    tripView(): void,
 };
 type TripCardsState = {
-    currentView: string,
 };
 
 export class TripCards extends Component<TripCardsProps, TripCardsState> {
     constructor(props: TripCardsProps) {
         super(props);
         this.state = {
-            currentView: "TripCards",
         }
     }
 
@@ -49,16 +49,10 @@ export class TripCards extends Component<TripCardsProps, TripCardsState> {
         this.props.toggleEditModal();
     }
 
-    tripView = () => {
-        this.setState({
-            currentView: "TripView",
-        })
-    }
-
     render() {
         return (
             <div>
-                {this.state.currentView === "TripCards" ?
+                {this.props.currentView === "TripCards" ?
                     this.props.tripData.map((trip) => {
                         return (
                             <div>
@@ -69,7 +63,7 @@ export class TripCards extends Component<TripCardsProps, TripCardsState> {
                                         return <li>{park.parkName}</li>
                                     })}
                                 </ul>
-                                <button onClick={() => { this.props.updateTrip(trip.id); this.props.fetchOneTrip(); this.tripView() }}>view</button>
+                                <button onClick={() => { this.props.updateTrip(trip.id); this.props.fetchOneTrip(); this.props.tripView() }}>view</button>
                                 <button onClick={() => { this.props.updateTrip(trip.id); this.editBtn() }}>edit</button>
                                 <button onClick={() => { this.props.updateTrip(trip.id); this.props.deleteTrip() }}>delete</button>
                             </div>
@@ -78,6 +72,8 @@ export class TripCards extends Component<TripCardsProps, TripCardsState> {
                     <TripView
                         fetchOneTrip={this.props.fetchOneTrip}
                         oneTrip={this.props.oneTrip}
+                        token={this.props.token}
+                        tripId={this.props.tripToUpdate}
                     />
                 }
             </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { ParkIndex } from '../parks';
+import { ParkIndex, ParkView, ParkSearch } from '../parks';
 import { trips } from '../types/tripType';
 import { park } from '../types/parkType';
 
@@ -19,22 +19,45 @@ interface TripObj {
 type TripViewProps = {
     fetchOneTrip(): void,
     oneTrip: TripObj,
+    token: string | null,
+    tripId: number,
 };
+type TripViewState = {
+    currentView: string,
+    query: string,
+}
 
-export class TripView extends Component<TripViewProps, {}> {
+export class TripView extends Component<TripViewProps, TripViewState> {
     constructor(props: TripViewProps) {
         super(props);
+        this.state = {
+            currentView: "TripView",
+            query: '',
+        }
     }
 
     componentDidMount() {
         this.props.fetchOneTrip();
     }
 
+    parkView = () => {
+        this.setState({
+            currentView: "ParkView",
+        })
+    }
+
+    parkSearch = () => {
+        this.setState({
+            currentView: "ParkSearch",
+        })
+    }
+
     render() {
-        console.log(this.props.oneTrip.parks)
         return (
             <div>
-                <button>add park</button>
+                {this.state.currentView === "TripView" ?
+                <div>
+                <button onClick={this.parkSearch}>add park</button>
                 <br />
                 {(this.props.oneTrip.tripImage !== "") ?
                     <img src={this.props.oneTrip.tripImage} /> :
@@ -46,11 +69,29 @@ export class TripView extends Component<TripViewProps, {}> {
                 {this.props.oneTrip.parks.map((park) => {
                     return <div>
                         <p>{park.parkName}</p>
-                        <button>view</button>
+                        <button onClick={this.parkView}>view</button>
+                        <button>edit</button>
+                        <button>delete</button>
                     </div>
                 })}
-                <ParkIndex />
+                </div> : 
+                (this.state.currentView === "ParkView") ?
+                <ParkView /> :
+                <ParkSearch
+                query={this.state.query}
+                setQuery={this.setQuery}
+                token={this.props.token}
+                tripId={this.props.tripId}
+                />               
+            }
             </div>
         )
     }
+
+    setQuery = (newQuery: string) => {
+        this.setState({
+            query: newQuery,
+        })
+    }
+
 }

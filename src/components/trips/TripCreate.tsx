@@ -43,9 +43,9 @@ export class TripCreate extends Component<TripCreateProps, {}> {
                 'Authorization': `Bearer ${this.props.token}`,
             })
         }).then(res => res.json())
-            .then((data => {
+            .then((data) => {
                 console.log(data)
-            }))
+            })
     }
 
     closeModal = (e: React.FormEvent) => {

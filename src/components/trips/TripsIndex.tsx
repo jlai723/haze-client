@@ -33,6 +33,7 @@ type TripsIndexState = {
     tripToUpdate: number,
     tripData: trips[] | [],
     oneTrip: TripObj,
+    currentView: string,
 };
 
 export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
@@ -61,6 +62,7 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
                 updatedAt: "",
                 userId: 0,
             },
+            currentView: "TripCards",
         }
     }
 
@@ -116,7 +118,10 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
     render() {
         return (
             <div>
-                <button onClick={this.toggleAddModal}>add</button>
+                {this.state.currentView === "TripCards" ?
+                    <button onClick={this.toggleAddModal}>add a trip</button> :
+                    <></>                
+                }
                 <TripCreate
                     token={this.props.sessionToken}
                     name={this.state.tripName}
@@ -143,6 +148,8 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
                     deleteTrip={this.deleteTrip}
                     fetchOneTrip={this.fetchOneTrip}
                     oneTrip={this.state.oneTrip}
+                    currentView={this.state.currentView}
+                    tripView={this.tripView}
                 />
                 {this.state.updateActive
                     ? <TripEdit
@@ -192,5 +199,9 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
     }
     updateOff = () => {
         this.setState({ updateActive: false })
+    }
+
+    tripView = () => {
+        this.setState({ currentView: "TripView" })
     }
 }
