@@ -45,11 +45,11 @@ class App extends Component<AppProps, AppState> {
 
   render() {
     return (
-        <div>
-          {/* <Header logout={this.clearToken} updateToken={this.updateToken} /> */}
-          {(this.state.sessionToken === localStorage.getItem('token')) ? <TripsIndex sessionToken={this.state.sessionToken} /> : <Portal updateToken={this.updateToken} />}
-          {/* <Footer /> */}
-        </div>
+      <div>
+        <Header logout={this.clearToken} updateToken={this.updateToken} />
+        {(this.state.sessionToken === localStorage.getItem('token')) ? <TripsIndex sessionToken={this.state.sessionToken} /> : <Portal updateToken={this.updateToken} />}
+        {/* <Footer /> */}
+      </div>
     );
   }
 }

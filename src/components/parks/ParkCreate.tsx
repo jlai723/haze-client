@@ -17,6 +17,7 @@ type ParkCreateState = {
     parkEDate: string,
     parkNotes: string,
     parkId: number,
+    showParkConnect: boolean,
 }
 
 export class ParkCreate extends Component<ParkCreateProps, ParkCreateState> {
@@ -27,6 +28,7 @@ export class ParkCreate extends Component<ParkCreateProps, ParkCreateState> {
             parkEDate: '',
             parkNotes: '',
             parkId: 0,
+            showParkConnect: false,
         }
     }
 
@@ -53,8 +55,8 @@ export class ParkCreate extends Component<ParkCreateProps, ParkCreateState> {
             })
         }).then(res => res.json())
             .then(json => this.setState({ parkId: json.id }))
-        }
-        
+    }
+
     setSDate = (newSDate: string) => {
         this.setState({ parkSDate: newSDate })
     }
@@ -63,6 +65,9 @@ export class ParkCreate extends Component<ParkCreateProps, ParkCreateState> {
     }
     setNotes = (newNotes: string) => {
         this.setState({ parkNotes: newNotes })
+    }
+    toggleParkConnect = () => {
+        this.setState({ showParkConnect: !this.state.showParkConnect })
     }
 
     render() {
@@ -79,15 +84,18 @@ export class ParkCreate extends Component<ParkCreateProps, ParkCreateState> {
                     <input type="date" onChange={(e) => this.setEDate(e.target.value)}></input>
                     <label>notes:</label>
                     <input type="text" onChange={(e) => this.setNotes(e.target.value)}></input>
-                    <button type="submit">select trip</button>
+                    <button type="submit" onClick={this.toggleParkConnect}>select trip</button>
                 </form>
-                <ParkConnectToTrip 
-                    parkId={this.state.parkId}
-                    tripId={this.props.tripId}
-                    token={this.props.token}
-                    fetchOneTrip={this.props.fetchOneTrip}
-                />
-                <button>cancel</button>
+                {(this.state.showParkConnect) ?
+                    <ParkConnectToTrip
+                        parkId={this.state.parkId}
+                        tripId={this.props.tripId}
+                        token={this.props.token}
+                        fetchOneTrip={this.props.fetchOneTrip}
+                    /> :
+                    <></>
+                }
+                <button onClick={() => window.location.reload()}>cancel</button>
             </div>
         )
     }

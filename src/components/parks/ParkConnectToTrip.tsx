@@ -57,9 +57,9 @@ export class ParkConnectToTrip extends Component<ParkConnectToTripProps, ParkCon
     }
 
     render() {
-        console.log(this.state.selectedTripId)
         return (
             <div>
+                <p>which trip do you want to add this to?</p>
                 {this.state.tripData.map((trip) => {
                     return (
                         <button onClick={() => {

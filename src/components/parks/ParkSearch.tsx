@@ -57,12 +57,17 @@ export class ParkSearch extends Component<ParkSearchProps, ParkSearchClass> {
     render() {
         return (
             <div>
-                <form onSubmit={this.fetchNatlParks}>
-                    <label>enter park name or keywords to search:</label>
-                    <input type="text" onChange={(e) => { this.setQuery(e.target.value) }}></input>
-                    <button type="submit">explore</button>
-                </form>
-                <button onClick={this.props.toggleParkSearch}>{`back to ${this.props.oneTrip.tripName}`}</button>
+                {(this.state.currentView === "ParkSearchDisplay") ?
+                    <div>
+                        <form onSubmit={this.fetchNatlParks}>
+                            <label>enter park name or keywords to search:</label>
+                            <input type="text" onChange={(e) => { this.setQuery(e.target.value) }}></input>
+                            <button type="submit">explore</button>
+                        </form>
+                        <button>{`back to ${this.props.oneTrip.tripName}`}</button>
+                    </div> :
+                    <></>
+                }
                 <div>
                     <ParkDisplay
                         queriedParks={this.state.queriedParks}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
+import './Trips.css';
 import { TripCreate } from './TripCreate';
 import { TripCards } from './TripCards';
 import { TripEdit } from './TripEdit';
@@ -121,7 +122,7 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
 
     render() {
         return (
-            <div>
+            <div className="App">
                 <TripCreate
                     token={this.props.sessionToken}
                     name={this.state.tripName}

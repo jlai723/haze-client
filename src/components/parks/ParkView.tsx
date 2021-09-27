@@ -73,7 +73,7 @@ export class ParkView extends Component<ParkViewProps, ParkViewState> {
                 <h2>{this.state.parkName}</h2>
                 <h4>{this.state.parkStartDate} - {this.state.parkEndDate}</h4>
                 <h4>{this.state.parkAddress}</h4>
-                <p>visit their site: {this.state.parkUrl}</p>
+                <a href={this.state.parkUrl} target="_blank" rel="noreferrer">visit their site</a>
                 <p>my notes: {this.state.parkNotes}</p>
                 <button>edit</button>
                 <button>delete</button>
