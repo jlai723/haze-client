@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import './App.css';
+// import './App.css';
+import { Link, Switch, Route } from 'react-router-dom';
 
 import { Header, Footer } from './components/common';
 import { Portal } from './components/auth';
 import { TripsIndex } from './components/trips';
+import { ParkSearch } from './components/parks';
 
 type AppProps = {};
 type AppState = {
@@ -19,7 +21,7 @@ class App extends Component<AppProps, AppState> {
   }
 
   componentDidMount() {
-    if(localStorage.getItem('token')) {
+    if (localStorage.getItem('token')) {
       this.setState({
         sessionToken: localStorage.getItem('token'),
       })
@@ -43,11 +45,11 @@ class App extends Component<AppProps, AppState> {
 
   render() {
     return (
-      <div className="App">
-        {/* <Header logout={this.clearToken} /> */}
-        {(this.state.sessionToken === localStorage.getItem('token')) ? <TripsIndex sessionToken={this.state.sessionToken} /> : <Portal updateToken={this.updateToken} />}
-        {/* <Footer /> */}
-      </div>
+        <div>
+          {/* <Header logout={this.clearToken} updateToken={this.updateToken} /> */}
+          {(this.state.sessionToken === localStorage.getItem('token')) ? <TripsIndex sessionToken={this.state.sessionToken} /> : <Portal updateToken={this.updateToken} />}
+          {/* <Footer /> */}
+        </div>
     );
   }
 }

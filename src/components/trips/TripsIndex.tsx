@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
 import { TripCreate } from './TripCreate';
 import { TripCards } from './TripCards';
@@ -6,7 +7,7 @@ import { TripEdit } from './TripEdit';
 import { trips } from '../types/tripType';
 import { park } from '../types/parkType';
 
-interface TripObj {
+export interface TripObj {
     createdAt: string;
     id: number;
     parks: park[] | [];
@@ -33,7 +34,7 @@ type TripsIndexState = {
     tripToUpdate: number,
     tripData: trips[] | [],
     oneTrip: TripObj,
-    currentView: string,
+    showTripCards: boolean,
 };
 
 export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
@@ -62,7 +63,7 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
                 updatedAt: "",
                 userId: 0,
             },
-            currentView: "TripCards",
+            showTripCards: true,
         }
     }
 
@@ -75,6 +76,9 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
         this.setState({
             showEditModal: !this.state.showEditModal,
         })
+    }
+    toggleTripCards = () => {
+        this.setState({ showTripCards: !this.state.showTripCards })
     }
 
     fetchTrips = () => {
@@ -99,9 +103,9 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
             })
         }).then((res) => res.json())
             .then((oneTrip) => {
-                if (oneTrip !== null) this.setState({
-                    oneTrip: oneTrip,
-                })
+                if (oneTrip !== null) {
+                    this.setState({ oneTrip: oneTrip });
+                }
             })
     }
 
@@ -118,10 +122,6 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
     render() {
         return (
             <div>
-                {this.state.currentView === "TripCards" ?
-                    <button onClick={this.toggleAddModal}>add a trip</button> :
-                    <></>                
-                }
                 <TripCreate
                     token={this.props.sessionToken}
                     name={this.state.tripName}
@@ -139,17 +139,18 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
                 />
                 <TripCards
                     fetchTrips={this.fetchTrips}
-                    tripToUpdate={this.state.tripToUpdate}
-                    updateTrip={this.updateTrip}
-                    updateOn={this.updateOn}
-                    toggleEditModal={this.toggleEditModal}
                     tripData={this.state.tripData}
                     token={this.props.sessionToken}
+                    updateTrip={this.updateTrip}
+                    tripToUpdate={this.state.tripToUpdate}
+                    updateOn={this.updateOn}
+                    toggleAddModal={this.toggleAddModal}
+                    toggleEditModal={this.toggleEditModal}
                     deleteTrip={this.deleteTrip}
                     fetchOneTrip={this.fetchOneTrip}
                     oneTrip={this.state.oneTrip}
-                    currentView={this.state.currentView}
-                    tripView={this.tripView}
+                    showTripCards={this.state.showTripCards}
+                    toggleTripCards={this.toggleTripCards}
                 />
                 {this.state.updateActive
                     ? <TripEdit
@@ -199,9 +200,5 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
     }
     updateOff = () => {
         this.setState({ updateActive: false })
-    }
-
-    tripView = () => {
-        this.setState({ currentView: "TripView" })
     }
 }

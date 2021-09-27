@@ -17,6 +17,7 @@ type ParkDisplayState = {
     selectedParkImage: string,
     parkImgAlt: string,
     parkCode: string,
+    parkUrl: string,
 }
 
 export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
@@ -28,33 +29,38 @@ export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
             selectedParkImage: '',
             parkImgAlt: '',
             parkCode: '',
+            parkUrl: '',
         }
     }
 
+    fetchInfo = () => {
+        fetch(`http://https://developer.nps.gov/api/v1/parks?parkCode=${this.state.parkCode}&api_key=HhkxS8ZdTvnrdnu3zsQUEUzYbunbFcicTxvvQBPK`)
+            .then(res => {
+                if (res.status !== 200) {
+                    throw new Error('Fetch Error');
+                } else return res.json()
+            })
+            .then(json => { console.log(json) })
+            .catch(err => console.log(err))
+    }
+
     selectParkName = (selectName: string) => {
-        this.setState({
-            selectedParkName: selectName,
-        })
+        this.setState({ selectedParkName: selectName })
     }
     selectParkAddress = (selectAddress: string) => {
-        this.setState({
-            selectedParkAddress: selectAddress,
-        })
+        this.setState({ selectedParkAddress: selectAddress })
     }
     selectParkImage = (selectImage: string) => {
-        this.setState({
-            selectedParkImage: selectImage,
-        })
+        this.setState({ selectedParkImage: selectImage })
     }
     selectImgAlt = (selectImgAlt: string) => {
-        this.setState({
-            parkImgAlt: selectImgAlt,
-        })
+        this.setState({ parkImgAlt: selectImgAlt })
     }
     selectparkCode = (selectParkCode: string) => {
-        this.setState({
-            parkCode: selectParkCode,
-        })
+        this.setState({ parkCode: selectParkCode })
+    }
+    selectParkUrl = (selectParkUrl: string) => {
+        this.setState({ parkUrl: selectParkUrl })
     }
 
     render() {
@@ -74,6 +80,7 @@ export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
                                     this.selectParkImage(park.images[0].url);
                                     this.selectImgAlt(park.images[0].altText);
                                     this.selectparkCode(park.parkCode);
+                                    this.selectParkUrl(park.url);
                                 }}>view</button>
                                 <button onClick={() => {
                                     this.props.parkCreate();
@@ -82,6 +89,7 @@ export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
                                     this.selectParkImage(park.images[0].url);
                                     this.selectImgAlt(park.images[0].altText);
                                     this.selectparkCode(park.parkCode);
+                                    this.selectParkUrl(park.url);
                                 }}>add to trip</button>
                             </div>
                         )
@@ -92,6 +100,7 @@ export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
                     parkImage={this.state.selectedParkImage}
                     parkImgAlt={this.state.parkImgAlt}
                     parkCode={this.state.parkCode}
+                    parkUrl={this.state.parkUrl}
                     tripId={this.props.tripId}
                     token={this.props.token}
                     fetchOneTrip={this.props.fetchOneTrip}

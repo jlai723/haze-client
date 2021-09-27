@@ -3,30 +3,18 @@ import React, { Component } from 'react';
 import { ParkIndex, ParkView, ParkSearch } from '../parks';
 import { trips } from '../types/tripType';
 import { park } from '../types/parkType';
+import { TripObj } from './TripsIndex';
 import { ParkEdit } from '../parks/ParkEdit';
 
-interface TripObj {
-    createdAt: string;
-    id: number;
-    parks: park[] | [];
-    tripEndDate: string;
-    tripImage: string;
-    tripName: string;
-    tripNotes: string;
-    tripStartDate: string;
-    updatedAt: string;
-    userId: number;
-};
 type TripViewProps = {
     fetchOneTrip(): void,
     fetchTrips(): void,
     oneTrip: TripObj,
     token: string | null,
     tripId: number,
+    toggleTripCards(): void,
 };
 type TripViewState = {
-    currentView: string,
-    query: string,
     parkId: number,
     parkName: string,
     parkAddress: string,
@@ -36,14 +24,15 @@ type TripViewState = {
     parkNotes: string,
     showEditModal: boolean,
     updateActive: boolean,
+    showTripView: boolean,
+    showParkSearch: boolean,
+    showParkView: boolean,
 }
 
 export class TripView extends Component<TripViewProps, TripViewState> {
     constructor(props: TripViewProps) {
         super(props);
         this.state = {
-            currentView: "TripView",
-            query: '',
             parkId: 0,
             parkName: '',
             parkAddress: '',
@@ -53,6 +42,9 @@ export class TripView extends Component<TripViewProps, TripViewState> {
             parkNotes: '',
             showEditModal: false,
             updateActive: false,
+            showTripView: true,
+            showParkSearch: false,
+            showParkView: false,
         }
     }
 
@@ -60,20 +52,20 @@ export class TripView extends Component<TripViewProps, TripViewState> {
         this.props.fetchOneTrip();
     }
 
-    parkView = () => {
-        this.setState({
-            currentView: "ParkView",
-        })
-    }
-
-    parkSearch = () => {
-        this.setState({
-            currentView: "ParkSearch",
-        })
-    }
-
     toggleEditModal = () => {
         this.setState({ showEditModal: !this.state.showEditModal })
+    }
+    toggleParkSearch = () => {
+        this.setState({
+            showTripView: !this.state.showTripView,
+            showParkSearch: !this.state.showParkSearch
+        })
+    }
+    toggleParkView = () => {
+        this.setState({
+            showTripView: !this.state.showTripView,
+            showParkView: !this.state.showParkView
+        })
     }
 
     editBtn = () => {
@@ -94,9 +86,9 @@ export class TripView extends Component<TripViewProps, TripViewState> {
     render() {
         return (
             <div>
-                {this.state.currentView === "TripView" ?
+                {(this.state.showTripView) ?
                     <div>
-                        <button onClick={this.parkSearch}>add park</button>
+                        <button onClick={this.toggleParkSearch}>add park</button>
                         <br />
                         {(this.props.oneTrip.tripImage !== "") ?
                             <img src={this.props.oneTrip.tripImage} /> :
@@ -108,25 +100,30 @@ export class TripView extends Component<TripViewProps, TripViewState> {
                         {this.props.oneTrip.parks.map((park) => {
                             return <div>
                                 <p>{park.parkName}</p>
-                                <button onClick={() => { this.parkView(); this.setParkId(park.id) }}>view</button>
+                                <button onClick={() => { this.toggleParkView(); this.setParkId(park.id) }}>view</button>
                                 <button onClick={() => { this.setParkId(park.id); this.editBtn() }}>edit</button>
                                 <button onClick={() => { this.setParkId(park.id); this.deletePark() }}>delete</button>
                             </div>
                         })}
+                        <button onClick={this.props.toggleTripCards}>back to trips</button>
                     </div> :
-                    (this.state.currentView === "ParkView") ?
+                    (this.state.showParkView && !this.state.showTripView && !this.state.showParkSearch) ?
                         <ParkView
                             tripId={this.props.tripId}
                             parkId={this.state.parkId}
                             token={this.props.token}
+                            oneTrip={this.props.oneTrip}
+                            toggleParkView={this.toggleParkView}
                         /> :
+                    (this.state.showParkSearch && !this.state.showTripView && !this.state.showParkView) ?
                         <ParkSearch
-                            query={this.state.query}
-                            setQuery={this.setQuery}
                             token={this.props.token}
                             tripId={this.props.tripId}
                             fetchOneTrip={this.props.fetchOneTrip}
-                        />
+                            oneTrip={this.props.oneTrip}
+                            toggleParkSearch={this.toggleParkSearch}
+                        /> :
+                    <></>
                 }
                 {this.state.updateActive ?
                     <ParkEdit
@@ -156,9 +153,6 @@ export class TripView extends Component<TripViewProps, TripViewState> {
         )
     }
 
-    setQuery = (newQuery: string) => {
-        this.setState({ query: newQuery })
-    }
     setParkId = (newParkId: number) => {
         this.setState({ parkId: newParkId })
     }

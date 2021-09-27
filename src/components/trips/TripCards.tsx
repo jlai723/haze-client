@@ -23,12 +23,13 @@ type TripCardsProps = {
     updateTrip(tripId: number): void,
     tripToUpdate: number,
     updateOn(): void,
+    toggleAddModal(): void,
     toggleEditModal(): void,
     deleteTrip(): void,
     fetchOneTrip(): void,
     oneTrip: TripObj,
-    currentView: string,
-    tripView(): void,
+    showTripCards: boolean,
+    toggleTripCards(): void,
 };
 type TripCardsState = {
 };
@@ -52,8 +53,10 @@ export class TripCards extends Component<TripCardsProps, TripCardsState> {
     render() {
         return (
             <div>
-                {this.props.currentView === "TripCards" ?
-                    this.props.tripData.map((trip) => {
+                {(this.props.showTripCards) ?
+                <div>
+                    <button onClick={this.props.toggleAddModal}>add trip</button>
+                    {this.props.tripData.map((trip) => {
                         return (
                             <div>
                                 <h3>{trip.tripName}</h3>
@@ -63,18 +66,20 @@ export class TripCards extends Component<TripCardsProps, TripCardsState> {
                                         return <li>{park.parkName}</li>
                                     })}
                                 </ul>
-                                <button onClick={() => { this.props.updateTrip(trip.id); this.props.fetchOneTrip(); this.props.tripView() }}>view</button>
+                                <button onClick={() => { this.props.updateTrip(trip.id); this.props.fetchOneTrip(); this.props.toggleTripCards() }}>view</button>
                                 <button onClick={() => { this.props.updateTrip(trip.id); this.editBtn() }}>edit</button>
                                 <button onClick={() => { this.props.updateTrip(trip.id); this.props.deleteTrip() }}>delete</button>
                             </div>
                         )
-                    }) :
+                    })}
+                </div> :
                     <TripView
                         fetchOneTrip={this.props.fetchOneTrip}
                         fetchTrips={this.props.fetchTrips}
                         oneTrip={this.props.oneTrip}
                         token={this.props.token}
                         tripId={this.props.tripToUpdate}
+                        toggleTripCards={this.props.toggleTripCards}
                     />
                 }
             </div>

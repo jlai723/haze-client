@@ -31,6 +31,26 @@ export class ParkEdit extends Component <ParkEditProps, {}> {
         this.myRef = React.createRef();
     }
 
+    componentDidMount() {
+        this.fetchOnePark();
+    }
+
+    fetchOnePark = () => {
+        fetch(`http://localhost:3000/park/${this.props.tripId}/${this.props.parkId}`, {
+            method: 'GET',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.props.token}`
+            })
+        }).then((res) => res.json())
+        .then((onePark) => {
+            if (onePark !== null) {
+                this.props.setName(onePark.parkName);
+                this.props.setAddress(onePark.parkAddress);
+            }
+        })
+    }
+
     submitParkEdit = (e: React.FormEvent) => {
         e.preventDefault();
         fetch(`http://localhost:3000/park/${this.props.tripId}/update/${this.props.parkId}`, {
@@ -73,12 +93,10 @@ export class ParkEdit extends Component <ParkEditProps, {}> {
                     <Background ref={this.myRef} onClick={this.closeModal}>
                         <ModalWrapper>
                             <ModalContent>
-                                <h3>edit your trip</h3>
+                                <h3>edit your park</h3>
+                                <p>name: {this.props.name}</p>
+                                <p>address: {this.props.address}</p>
                                 <form onSubmit={this.submitParkEdit}>
-                                    <label>edit name: </label>
-                                    <input onChange={(e) => this.props.setName(e.target.value)}></input>
-                                    <label>edit address: </label>
-                                    <input onChange={(e) => this.props.setAddress(e.target.value)}></input>
                                     <label>edit start date: </label>
                                     <input type="date" onChange={(e) => this.props.setSDate(e.target.value)}></input>
                                     <label>edit end date: </label>

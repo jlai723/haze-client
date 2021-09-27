@@ -73,15 +73,6 @@ export class TripCreate extends Component<TripCreateProps, {}> {
                     <input></input> */}
                                     <label>notes: </label>
                                     <input onChange={(e) => this.props.setNotes(e.target.value)}></input>
-                                    {/* <label>destinations: </label>
-                    <input onChange={(e) => this.props.setDestinations(e.target.value)}></input>
-                    <select onChange={(e) => this.props.setDestinations(e.target.value)}>
-                        <option value="Yellowstone National Park">Yellowstone National Park</option>
-                        <option value="Yosemite National Park">Yosemite National Park</option>
-                        <option value="Glacier National Park">Glacier National Park</option>
-                        <option value="Grand Canyon National Park">Grand Canyon National Park</option>
-                        <option value="Zion National Park">Zion National Park</option>
-                    </select> */}
                                     <button type="submit">add</button>
                                 </form>
                             </ModalContent>
