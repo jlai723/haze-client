@@ -20,6 +20,7 @@ export const MapWrapper = styled.div`
         margin-right: 0.25em;
         background-color: transparent;
         border: none;
+        cursor: pointer;
     }
 `
 
