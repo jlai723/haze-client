@@ -1,12 +1,44 @@
 import React, { Component } from 'react';
 
 import { ParkCreate } from './ParkCreate';
-import { natlPark } from '../types/natlParkType';
+import { natlPark, activity, address, email, phone, eFee, pass, fee, image, oHours, except, topic } from '../types/natlParkType';
+import { ParkDetails } from './ParkDetails';
 
+export interface ParkObj {
+    activities: activity[] | []
+    addresses: address[] | []
+    contacts: {
+        emailAddresses: email[] | []
+        phoneNumbers: phone[] | []
+        description: string
+        designation: string
+        directionsInfo: string
+        directionsUrl: string
+    }
+    entranceFees: eFee[] | []
+    entrancePasses: pass[] | []
+    fees: fee[] | []
+    fullName: string
+    id: string
+    images: image[] | []
+    latLong: string
+    latitude: string
+    longitude: string
+    name: string
+    operatingHours: oHours[] | []
+    parkCode: string
+    states: string
+    topics: topic[] | []
+    url: string
+    weatherInfo: string
+}
 type ParkDisplayProps = {
     queriedParks: natlPark[] | [],
-    parkCreate(): void,
-    currentView: string,
+    toggleParkCreate(): void,
+    toggleParkDetails(): void,
+    showParkSearchDisplay: boolean,
+    showParkCreate: boolean,
+    showParkDetails: boolean,
     tripId: number,
     token: string | null,
     fetchOneTrip(): void,
@@ -18,6 +50,7 @@ type ParkDisplayState = {
     parkImgAlt: string,
     parkCode: string,
     parkUrl: string,
+    selectedPark: ParkObj,
 }
 
 export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
@@ -30,6 +63,34 @@ export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
             parkImgAlt: '',
             parkCode: '',
             parkUrl: '',
+            selectedPark: {
+                activities: [],
+                addresses: [],
+                contacts: {
+                    emailAddresses: [],
+                    phoneNumbers: [],
+                    description: "",
+                    designation: "",
+                    directionsInfo: "",
+                    directionsUrl: "",
+                },
+                entranceFees: [],
+                entrancePasses: [],
+                fees: [],
+                fullName: "",
+                id: "",
+                images: [],
+                latLong: "",
+                latitude: "",
+                longitude: "",
+                name: "",
+                operatingHours: [],
+                parkCode: "",
+                states: "",
+                topics: [],
+                url: "",
+                weatherInfo: "",            
+            },
         }
     }
 
@@ -42,6 +103,59 @@ export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
             })
             .then(json => { console.log(json) })
             .catch(err => console.log(err))
+    }
+
+    render() {
+        return (
+            <div>
+                {(this.props.showParkSearchDisplay) ?
+                    this.props.queriedParks.map((park) => {
+                        return (
+                            <div>
+                                <h2>{park.fullName.toLowerCase()}</h2>
+                                <h5>{park.addresses[0].line1.toLowerCase()}, {park.addresses[0].city.toLowerCase()}, {park.addresses[0].stateCode.toLowerCase()} {park.addresses[0].postalCode}</h5>
+                                <img src={park.images[0].url} alt={park.images[0].altText} />
+                                <a href={park.url} target="_blank" rel="noreferrer">visit their site</a>
+                                <button onClick={() => {
+                                    this.selectPark(park);
+                                    this.props.toggleParkDetails();
+                                    // console.log(park);
+                                    // this.fetchInfo();
+                                }}>view</button>
+                                <button onClick={() => {
+                                    this.props.toggleParkCreate();
+                                    this.selectParkName(park.fullName.toLowerCase());
+                                    this.selectParkAddress(`${park.addresses[0].line1.toLowerCase()}, ${park.addresses[0].city.toLowerCase()}, ${park.addresses[0].stateCode.toLowerCase()} ${park.addresses[0].postalCode}`);
+                                    this.selectParkImage(park.images[0].url);
+                                    this.selectImgAlt(park.images[0].altText);
+                                    this.selectparkCode(park.parkCode);
+                                    this.selectParkUrl(park.url);
+                                }}>add to trip</button>
+                            </div>
+                        )
+                    }) :
+                    (this.props.showParkCreate && !this.props.showParkSearchDisplay && !this.props.showParkDetails) ?
+                    <ParkCreate
+                    parkName={this.state.selectedParkName}
+                    parkAddress={this.state.selectedParkAddress}
+                    parkImage={this.state.selectedParkImage}
+                    parkImgAlt={this.state.parkImgAlt}
+                    parkCode={this.state.parkCode}
+                    parkUrl={this.state.parkUrl}
+                    tripId={this.props.tripId}
+                    token={this.props.token}
+                    fetchOneTrip={this.props.fetchOneTrip}
+                    toggleParkCreate={this.props.toggleParkCreate}
+                    /> :
+                    (this.props.showParkDetails && !this.props.showParkSearchDisplay && !this.props.showParkCreate) ?
+                    <ParkDetails 
+                        parkDetails={this.state.selectedPark}
+                        toggleParkDetails={this.props.toggleParkDetails}
+                    /> :
+                    <></>
+            }
+            </div>
+        )
     }
 
     selectParkName = (selectName: string) => {
@@ -62,51 +176,7 @@ export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
     selectParkUrl = (selectParkUrl: string) => {
         this.setState({ parkUrl: selectParkUrl })
     }
-
-    render() {
-        return (
-            <div>
-                {this.props.currentView === "ParkSearchDisplay" ?
-                    this.props.queriedParks.map((park) => {
-                        return (
-                            <div>
-                                <h2>{park.fullName.toLowerCase()}</h2>
-                                <h5>{park.addresses[0].line1.toLowerCase()}, {park.addresses[0].city.toLowerCase()}, {park.addresses[0].stateCode.toLowerCase()} {park.addresses[0].postalCode}</h5>
-                                <img src={park.images[0].url} alt={park.images[0].altText} />
-                                <a href={park.url} target="_blank" rel="noreferrer">visit their site</a>
-                                <button onClick={() => {
-                                    this.selectParkName(park.fullName.toLowerCase());
-                                    this.selectParkAddress(`${park.addresses[0].line1.toLowerCase()}, ${park.addresses[0].city.toLowerCase()}, ${park.addresses[0].stateCode.toLowerCase()} ${park.addresses[0].postalCode}`);
-                                    this.selectParkImage(park.images[0].url);
-                                    this.selectImgAlt(park.images[0].altText);
-                                    this.selectparkCode(park.parkCode);
-                                    this.selectParkUrl(park.url);
-                                }}>view</button>
-                                <button onClick={() => {
-                                    this.props.parkCreate();
-                                    this.selectParkName(park.fullName.toLowerCase());
-                                    this.selectParkAddress(`${park.addresses[0].line1.toLowerCase()}, ${park.addresses[0].city.toLowerCase()}, ${park.addresses[0].stateCode.toLowerCase()} ${park.addresses[0].postalCode}`);
-                                    this.selectParkImage(park.images[0].url);
-                                    this.selectImgAlt(park.images[0].altText);
-                                    this.selectparkCode(park.parkCode);
-                                    this.selectParkUrl(park.url);
-                                }}>add to trip</button>
-                            </div>
-                        )
-                    }) :
-                    <ParkCreate
-                    parkName={this.state.selectedParkName}
-                    parkAddress={this.state.selectedParkAddress}
-                    parkImage={this.state.selectedParkImage}
-                    parkImgAlt={this.state.parkImgAlt}
-                    parkCode={this.state.parkCode}
-                    parkUrl={this.state.parkUrl}
-                    tripId={this.props.tripId}
-                    token={this.props.token}
-                    fetchOneTrip={this.props.fetchOneTrip}
-                    />
-            }
-            </div>
-        )
+    selectPark = (selectPark: ParkObj) => {
+        this.setState({ selectedPark: selectPark })
     }
 }

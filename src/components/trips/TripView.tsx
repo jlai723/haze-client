@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { ParkIndex, ParkView, ParkSearch } from '../parks';
+import { ParkView, ParkSearch } from '../parks';
 import { trips } from '../types/tripType';
 import { park } from '../types/parkType';
 import { TripObj } from './TripsIndex';
@@ -114,6 +114,25 @@ export class TripView extends Component<TripViewProps, TripViewState> {
                             token={this.props.token}
                             oneTrip={this.props.oneTrip}
                             toggleParkView={this.toggleParkView}
+                            updateActive={this.state.updateActive}
+                            updateOn={this.updateOn}
+                            updateOff={this.updateOff}
+                            name={this.state.parkName}
+                            address={this.state.parkAddress}
+                            startDate={this.state.parkStartDate}
+                            endDate={this.state.parkEndDate}
+                            image={this.state.parkImage}
+                            notes={this.state.parkNotes}
+                            setName={this.setName}
+                            setAddress={this.setAddress}
+                            setSDate={this.setSDate}
+                            setEDate={this.setEDate}
+                            setImage={this.setImage}
+                            setNotes={this.setNotes}
+                            showEditModal={this.state.showEditModal}
+                            toggleEditModal={this.toggleEditModal}
+                            fetchOneTrip={this.props.fetchOneTrip}
+                            deletePark={this.deletePark}
                         /> :
                     (this.state.showParkSearch && !this.state.showTripView && !this.state.showParkView) ?
                         <ParkSearch

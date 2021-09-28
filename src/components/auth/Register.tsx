@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Wrapper } from './LoginRegister.styles';
+import { Wrapper } from './Register.styles';
 
 type RegisterProps = {
     firstName: string,
@@ -55,15 +55,15 @@ export class Register extends Component <RegisterProps, RegisterState> {
                     <label>username</label>
                     <input required onChange={(e) => {this.props.setUsername(e.target.value)}}></input>
                     <label>password</label>
-                    <input required onChange={(e) => {this.props.setPassword(e.target.value)}}></input>
+                    <input required type="password" onChange={(e) => {this.props.setPassword(e.target.value)}}></input>
                     <label>confirm password</label>
-                    <input required onChange={(e) => {this.props.setCPassword(e.target.value)}}></input>
+                    <input required type="password" onChange={(e) => {this.props.setCPassword(e.target.value)}}></input>
                     <label>role</label>
                     <select required onChange={(e) => {this.props.setRole(e.target.value)}}>
                         <option value="user">user</option>
                         <option value="admin">admin</option>
                     </select>
-                    <button type="submit">create</button>
+                    <button className="submit" type="submit">create</button>
                 </form>
                 <a onClick={this.props.toggleToLogin}>already have an account?</a>
             </Wrapper>

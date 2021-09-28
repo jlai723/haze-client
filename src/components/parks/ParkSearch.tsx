@@ -15,7 +15,9 @@ type ParkSearchProps = {
 type ParkSearchClass = {
     query: string,
     queriedParks: natlPark[] | [],
-    currentView: string,
+    showParkSearchDisplay: boolean,
+    showParkCreate: boolean,
+    showParkDetails: boolean,
 };
 
 export class ParkSearch extends Component<ParkSearchProps, ParkSearchClass> {
@@ -24,7 +26,9 @@ export class ParkSearch extends Component<ParkSearchProps, ParkSearchClass> {
         this.state = {
             query: "",
             queriedParks: [],
-            currentView: "ParkSearchDisplay",
+            showParkSearchDisplay: true,
+            showParkCreate: false,
+            showParkDetails: false,
         }
     }
 
@@ -48,16 +52,23 @@ export class ParkSearch extends Component<ParkSearchProps, ParkSearchClass> {
             .catch(err => console.log(err))
     }
 
-    parkCreate = () => {
+    toggleParkCreate = () => {
+        this.setState({ 
+            showParkSearchDisplay: !this.state.showParkSearchDisplay,
+            showParkCreate: !this.state.showParkCreate,
+        })
+    }
+    toggleParkDetails = () => {
         this.setState({
-            currentView: "ParkCreate",
+            showParkSearchDisplay: !this.state.showParkSearchDisplay,
+            showParkDetails: !this.state.showParkDetails,
         })
     }
 
     render() {
         return (
             <div>
-                {(this.state.currentView === "ParkSearchDisplay") ?
+                {(this.state.showParkSearchDisplay) ?
                     <div>
                         <form onSubmit={this.fetchNatlParks}>
                             <label>enter park name or keywords to search:</label>
@@ -71,8 +82,11 @@ export class ParkSearch extends Component<ParkSearchProps, ParkSearchClass> {
                 <div>
                     <ParkDisplay
                         queriedParks={this.state.queriedParks}
-                        parkCreate={this.parkCreate}
-                        currentView={this.state.currentView}
+                        toggleParkCreate={this.toggleParkCreate}
+                        toggleParkDetails={this.toggleParkDetails}
+                        showParkSearchDisplay={this.state.showParkSearchDisplay}
+                        showParkCreate={this.state.showParkCreate}
+                        showParkDetails={this.state.showParkDetails}
                         tripId={this.props.tripId}
                         token={this.props.token}
                         fetchOneTrip={this.props.fetchOneTrip}

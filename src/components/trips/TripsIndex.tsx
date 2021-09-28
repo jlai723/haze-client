@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
-import './Trips.css';
 import { TripCreate } from './TripCreate';
 import { TripCards } from './TripCards';
 import { TripEdit } from './TripEdit';
 import { trips } from '../types/tripType';
 import { park } from '../types/parkType';
+import { Wrapper } from './TripsIndex.styles'
 
 export interface TripObj {
     createdAt: string;
@@ -121,8 +121,9 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
     }
 
     render() {
+        if (!this.props.sessionToken) return <Redirect to="/" />
         return (
-            <div className="App">
+            <Wrapper>
                 <TripCreate
                     token={this.props.sessionToken}
                     name={this.state.tripName}
@@ -173,7 +174,7 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
                         fetchTrips={this.fetchTrips}
                     />
                     : <></>}
-            </div>
+            </Wrapper>
         )
     }
 

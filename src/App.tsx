@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import './App.css';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Link, Switch, Route, Redirect } from 'react-router-dom';
 
 import { Header, Footer } from './components/common';
 import { Portal } from './components/auth';
@@ -33,7 +33,6 @@ class App extends Component<AppProps, AppState> {
     this.setState({
       sessionToken: newToken,
     });
-    console.log(this.state.sessionToken)
   }
 
   clearToken = () => {
@@ -46,9 +45,17 @@ class App extends Component<AppProps, AppState> {
   render() {
     return (
       <div>
-        <Header logout={this.clearToken} updateToken={this.updateToken} />
-        {(this.state.sessionToken === localStorage.getItem('token')) ? <TripsIndex sessionToken={this.state.sessionToken} /> : <Portal updateToken={this.updateToken} />}
-        {/* <Footer /> */}
+        <Header logout={this.clearToken} updateToken={this.updateToken} token={this.state.sessionToken} />
+        {/* {(this.state.sessionToken === localStorage.getItem('token')) ? <TripsIndex sessionToken={this.state.sessionToken} /> : <Portal updateToken={this.updateToken} sessionToken={this.state.sessionToken} />} */}
+        <Switch>
+          <Route exact path="/">
+            <Portal updateToken={this.updateToken} sessionToken={this.state.sessionToken} />
+          </Route>
+          <Route exact path="/trips">
+            <TripsIndex sessionToken={this.state.sessionToken} />
+          </Route> 
+        </Switch>
+        <Footer />
       </div>
     );
   }

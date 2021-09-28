@@ -1,13 +1,11 @@
-import { Switch } from 'antd';
 import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
-import { Wrapper } from './Header.styles';
-
-import { Portal } from '../auth/Portal'
+import { Redirect } from 'react-router-dom';
+import { Wrapper, NavWrapper } from './Header.styles';
 
 type HeaderProps = {
     logout(): void,
     updateToken(newToken: string): void,
+    token: string | null,
 }
 
 export class Header extends Component<HeaderProps, {}> {
@@ -16,11 +14,17 @@ export class Header extends Component<HeaderProps, {}> {
     }
 
     render() {
+        // if (this.props.token) return <Redirect to="/" />
         return (
-            <Wrapper>
-                <button>h</button>
-                <a onClick={this.props.logout}>Temp Logout</a>
-            </Wrapper>
+            <div>
+                <Wrapper>
+                    <button>h</button>
+                </Wrapper>
+                <NavWrapper>
+                    <a>my trips</a>
+                    <a onClick={this.props.logout}>logout</a>
+                </NavWrapper>
+            </div>
         )
     }
 }

@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import { LandingPage } from './LandingPage';
 import { Login } from './Login';
 import { Register } from './Register';
+import { TripsIndex } from '../trips'
 
 type PortalProps = {
     updateToken(newToken: string): void,
+    sessionToken: string | null,
 }
 type PortalState = {
     showLandingPage: boolean,
@@ -54,28 +57,32 @@ export class Portal extends Component<PortalProps, PortalState> {
     };
 
     render() {
+        if (this.props.sessionToken) return <Redirect to="/trips" />
         return (
             <div>
                 {(this.state.showLandingPage)
-                    ? <LandingPage toggleToLogin={this.toggleToLogin} toggleToRegister={this.toggleToRegister} />
+                    ? <LandingPage
+                        toggleToLogin={this.toggleToLogin}
+                        toggleToRegister={this.toggleToRegister}
+                    />
                     : (this.state.showLogin)
-                        ? <Login 
-                            username={this.state.username} 
+                        ? <Login
+                            username={this.state.username}
                             password={this.state.password}
-                            toggleToRegister={this.toggleToRegister} 
+                            toggleToRegister={this.toggleToRegister}
                             updateToken={this.props.updateToken}
                             setUsername={this.setUsername}
                             setPassword={this.setPassword}
                         />
-                        : <Register 
-                            firstName={this.state.firstName} 
-                            lastName={this.state.lastName} 
-                            username={this.state.username} 
+                        : <Register
+                            firstName={this.state.firstName}
+                            lastName={this.state.lastName}
+                            username={this.state.username}
                             password={this.state.password}
                             email={this.state.email}
                             cPassword={this.state.cPassword}
                             role={this.state.role}
-                            toggleToLogin={this.toggleToLogin} 
+                            toggleToLogin={this.toggleToLogin}
                             updateToken={this.props.updateToken}
                             setFirstName={this.setFirstName}
                             setLastName={this.setLastName}

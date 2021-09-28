@@ -27,31 +27,32 @@ export const Wrapper = styled.div`
     }
 
     h4 {
-        font-size: 1em;
+        font-size: 1.07em;
         font-weight: 600;
-        letter-spacing: 1.05em;
+        letter-spacing: 0.95em;
         color: whitesmoke;
         margin: 0;
     }
 
     button {
-        height: 2em;
-        width: 4em;
+        height: 2.25em;
+        width: 4.25em;
+        margin-top: 0.3em;
         border-radius: 0.5rem;
         border: solid 0.2em whitesmoke;
         background: rgba(225,185,152,1);
         color: whitesmoke;
-        font-size: 1.1em;
+        font-size: 1.25em;
         font-family: Montserrat, sans-serif;
         font-weight: 600;
         cursor: pointer;
     }
 
     a {
-        font-size: 0.7em;
+        font-size: 0.9em;
         color: whitesmoke;
         text-decoration: underline;
-        padding-top: 1.25em;
+        padding-top: 1.3em;
         cursor: pointer;
     }
 `;

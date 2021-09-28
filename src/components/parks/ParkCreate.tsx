@@ -11,6 +11,7 @@ type ParkCreateProps = {
     tripId: number,
     token: string | null,
     fetchOneTrip(): void,
+    toggleParkCreate(): void,
 }
 type ParkCreateState = {
     parkSDate: string,
@@ -73,6 +74,7 @@ export class ParkCreate extends Component<ParkCreateProps, ParkCreateState> {
     render() {
         return (
             <div>
+                <button onClick={this.props.toggleParkCreate}>back to search</button>
                 <img src={this.props.parkImage} alt={this.props.parkImgAlt} />
                 <p>name: {this.props.parkName}</p>
                 <p>address: {this.props.parkAddress}</p>

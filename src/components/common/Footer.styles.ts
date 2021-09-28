@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
     z-index: 1;
     min-width: 100vw;
     max-width: 100%;
-    height: 3.5em;
+    height: 5em;
     font-family: Montserrat, sans-serif;
     background-color: rgba(199,211,175,1);
 

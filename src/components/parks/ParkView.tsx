@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import { ParkEdit } from './ParkEdit';
 import { TripObj } from "../trips/TripsIndex";
 
 type ParkViewProps = {
@@ -9,6 +10,25 @@ type ParkViewProps = {
     token: string | null,
     oneTrip: TripObj,
     toggleParkView(): void,
+    updateActive: boolean,
+    updateOn(): void,
+    updateOff(): void,
+    name: string,
+    address: string,
+    startDate: string,
+    endDate: string,
+    image: string,
+    notes: string,
+    setName(newName: string): void,
+    setAddress(newAddress: string): void,
+    setSDate(newSDate: string): void,
+    setEDate(newEDate: string): void,
+    setImage(newImage: string): void,
+    setNotes(newNotes: string): void,
+    showEditModal: boolean,
+    toggleEditModal(): void,
+    fetchOneTrip(): void,
+    deletePark(): void,
 }
 type ParkViewState = {
     parkAddress: string,
@@ -75,9 +95,40 @@ export class ParkView extends Component<ParkViewProps, ParkViewState> {
                 <h4>{this.state.parkAddress}</h4>
                 <a href={this.state.parkUrl} target="_blank" rel="noreferrer">visit their site</a>
                 <p>my notes: {this.state.parkNotes}</p>
-                <button>edit</button>
-                <button>delete</button>
+                <button>view park details</button>
+                <button onClick={() => {
+                    this.props.updateOn();
+                    this.props.toggleEditModal();
+                }}>edit</button>
+                <button onClick={() => {
+                    this.props.deletePark();
+                    window.location.reload();
+                }}>delete</button>
                 <button onClick={this.props.toggleParkView}>{`back to ${this.props.oneTrip.tripName}`}</button>
+                {this.props.updateActive ?
+                    <ParkEdit
+                        tripId={this.props.tripId}
+                        updateOff={this.props.updateOff}
+                        token={this.props.token}
+                        name={this.props.name}
+                        address={this.props.address}
+                        startDate={this.props.startDate}
+                        endDate={this.props.endDate}
+                        image={this.props.image}
+                        notes={this.props.notes}
+                        parkId={this.props.parkId}
+                        setName={this.props.setName}
+                        setAddress={this.props.setAddress}
+                        setSDate={this.props.setSDate}
+                        setEDate={this.props.setEDate}
+                        setImage={this.props.setImage}
+                        setNotes={this.props.setNotes}
+                        showEditModal={this.props.showEditModal}
+                        toggleEditModal={this.props.toggleEditModal}
+                        fetchOneTrip={this.props.fetchOneTrip}
+                    /> :
+                    <></>
+                }
             </div>
         )
     }
