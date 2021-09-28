@@ -48,6 +48,7 @@ export const Wrapper = styled.div`
     }
     input.password {
         padding-top: 0;
+        user-select: none;
     }
 
     button.submit {

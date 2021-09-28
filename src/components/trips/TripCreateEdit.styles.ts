@@ -9,21 +9,24 @@ export const Background = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
+    z-index: 1;
     margin: 0;
     padding: 0;
 `
 
 export const ModalWrapper = styled.div`
-    width: 55vw;
-    height: 75vh;
+    width: 75vw;
+    height: 60vh;
     box-shadow: 0px 5px 16px rgba(0,0,0,0.2);
-    background: #fff;
-    color: #000;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    background: rgba(225,185,152,1);
+    color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: relative;
-    z-index: 10;
+    bottom: 3em;
+    z-index: 2;
     border-radius: 1rem;
 `
 
@@ -33,24 +36,50 @@ export const ModalContent = styled.div`
     justify-content: center;
     align-items: center;
     line-height: 1.8;
-    color: #141414;
+    color: whitesmoke;
+
+    h3 {
+        margin: 0;
+        font-size: 1.75em;
+        font-weight: 800;
+    }
 
     form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center;
+        align-items: center; */
+        text-align: left;
     }
-    
-    p {
-        margin-bottom: 1rem;
+    label {
+        font-weight: 600;
     }
-
-    button {
-        padding: 10px 24px;
-        background: #141414;
-        color: #fff;
+    input {
+        margin-bottom: 0.5em;
         border: none;
+        border-bottom: 0.2em solid whitesmoke;
+        background: none;
+    }
+    input[type="date"] {
+        color: whitesmoke;
+        font-family: Montserrat, sans-serif;
+    }
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+    }
+    input[type="date"]::-webkit-inner-spin-button {
+        background-color: green;
+    }
+    button {  
+        height: 2em;
+        width: 3.5em;
+        background: whitesmoke;
+        color: rgba(225,185,152,1);
+        border: 0.15em solid rgba(225,185,152,1);
+        border-radius: 0.25rem;
+        font-family: Montserrat, sans-serif;
+        font-weight: 600;
+        cursor: pointer;
     }
 `
 

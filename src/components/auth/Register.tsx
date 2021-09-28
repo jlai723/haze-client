@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
 
 import { Wrapper } from './Register.styles';
 
@@ -20,12 +21,17 @@ type RegisterProps = {
     setCPassword(newCPassword: string): void,
     setRole(newRole: string): void,
 }
-type RegisterState = {}
+type RegisterState = {
+    hidePassword: string,
+    hideCPassword: string,
+}
 
 export class Register extends Component <RegisterProps, RegisterState> {
     constructor(props: RegisterProps) {
         super(props);
         this.state = {
+            hidePassword: "password",
+            hideCPassword: "password",
         }
     }
 
@@ -42,6 +48,7 @@ export class Register extends Component <RegisterProps, RegisterState> {
     }
 
     render() {
+        let passwordStyle = { height: "1.5em", width: "1.5em" }
         return(
             <Wrapper>
                 <h2>create</h2>
@@ -55,9 +62,29 @@ export class Register extends Component <RegisterProps, RegisterState> {
                     <label>username</label>
                     <input required onChange={(e) => {this.props.setUsername(e.target.value)}}></input>
                     <label>password</label>
-                    <input required type="password" onChange={(e) => {this.props.setPassword(e.target.value)}}></input>
+                    {(this.state.hidePassword === "password") ?
+                        <button className="eye" onClick={(e) => {
+                            this.showPassword();
+                            e.preventDefault();
+                        }}><BsFillEyeFill style={passwordStyle} /></button> :
+                        <button className="eye" onClick={(e) => {
+                            this.hidePassword();
+                            e.preventDefault();
+                        }}><BsFillEyeSlashFill style={passwordStyle} /></button>
+                    }
+                    <input required type={this.state.hidePassword} onChange={(e) => {this.props.setPassword(e.target.value)}}></input>
                     <label>confirm password</label>
-                    <input required type="password" onChange={(e) => {this.props.setCPassword(e.target.value)}}></input>
+                    {(this.state.hideCPassword === "password") ?
+                        <button className="eye" onClick={(e) => {
+                            this.showCPassword();
+                            e.preventDefault();
+                        }}><BsFillEyeFill style={passwordStyle} /></button> :
+                        <button className="eye" onClick={(e) => {
+                            this.hideCPassword();
+                            e.preventDefault();
+                        }}><BsFillEyeSlashFill style={passwordStyle} /></button>
+                    }
+                    <input required type={this.state.hideCPassword} onChange={(e) => {this.props.setCPassword(e.target.value)}}></input>
                     <label>role</label>
                     <select required onChange={(e) => {this.props.setRole(e.target.value)}}>
                         <option value="user">user</option>
@@ -69,4 +96,18 @@ export class Register extends Component <RegisterProps, RegisterState> {
             </Wrapper>
         )
     }
+
+    showPassword = () => {
+        this.setState({ hidePassword: "" })
+    }
+    hidePassword = () => {
+        this.setState({ hidePassword: "password" })
+    }
+    showCPassword = () => {
+        this.setState({ hideCPassword: "" })
+    }
+    hideCPassword = () => {
+        this.setState({ hideCPassword: "password" })
+    }
+
 }

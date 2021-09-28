@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     font-family: Montserrat, sans-serif;
-    padding-top: 15vh;
+    padding-top: 8vh;
     padding-bottom: 15vh;
     margin: 0;
     max-width: 100%;
@@ -26,6 +26,7 @@ export const Wrapper = styled.div`
 
     label {
         font-weight: 600;
+        font-size: 1.1em;
         color: rgba(107,129,117,1);
         text-align: left;
         padding-top: 1em;
@@ -47,6 +48,9 @@ export const Wrapper = styled.div`
     }
     input.password {
         padding-top: 0;
+    }
+    select:focus {
+        outline: none;
     }
 
     button.submit {
@@ -73,7 +77,7 @@ export const Wrapper = styled.div`
     }
 
     a {
-        font-size: 0.8em;
+        font-size: 0.9em;
         font-weight: 600;
         color: rgba(225,185,152,1);
         text-decoration: underline;

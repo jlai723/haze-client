@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-    display: flex;
     margin: 0;
     padding: 0;
     position: fixed;
@@ -31,7 +30,7 @@ export const Wrapper = styled.div`
 export const NavWrapper = styled.div`
     display: flex;
     justify-content: flex-end;
-    z-index: 3;
+    z-index: 1;
     font-family: Montserrat, sans-serif;
     
     a {
@@ -42,7 +41,7 @@ export const NavWrapper = styled.div`
         cursor: pointer;
         margin-top: 1.3em;
         padding-right: 1em;
-        z-index: 4
+        z-index: 2;
     }
 
 `
