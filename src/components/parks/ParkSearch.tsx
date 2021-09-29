@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+import { Wrapper } from './ParkSearch.styles';
 import { ParkDisplay } from './ParkDisplay';
 import { natlPark } from "../types/natlParkType";
 import { TripObj } from "../trips/TripsIndex";
@@ -69,19 +70,20 @@ export class ParkSearch extends Component<ParkSearchProps, ParkSearchClass> {
         return (
             <div>
                 {(this.state.showParkSearchDisplay) ?
-                    <div>
+                    <Wrapper>
+                        <button className="nav-back" onClick={this.props.toggleParkSearch}>back</button>
                         <form onSubmit={this.fetchNatlParks}>
-                            <label>enter park name or keywords to search:</label>
+                            <label>enter name or keywords to search:</label>
                             <input type="text" onChange={(e) => { this.setQuery(e.target.value) }}></input>
-                            <button type="submit">explore</button>
+                            <button className="explore" type="submit">explore</button>
                         </form>
-                        <button>{`back to ${this.props.oneTrip.tripName}`}</button>
-                    </div> :
+                    </Wrapper> :
                     <></>
                 }
                 <div>
                     <ParkDisplay
                         queriedParks={this.state.queriedParks}
+                        query={this.state.query}
                         toggleParkCreate={this.toggleParkCreate}
                         toggleParkDetails={this.toggleParkDetails}
                         showParkSearchDisplay={this.state.showParkSearchDisplay}

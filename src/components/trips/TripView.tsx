@@ -9,6 +9,7 @@ import img5 from '../assets/trip-image-5.jpg';
 import img6 from '../assets/trip-image-6.jpg';
 
 import { Wrapper } from './TripView.styles';
+import { CardWrapper } from './TripCards.styles';
 import { ParkView, ParkSearch } from '../parks';
 import { trips } from '../types/tripType';
 import { park } from '../types/parkType';
@@ -74,14 +75,12 @@ export class TripView extends Component<TripViewProps, TripViewState> {
     }
 
     render() {
-        let addBtnStyle = { height: "3em", width: "3em", color: "rgba(225,185,152,1)" }
-        let backBtnStyle = { height: "2.5em", width: "2.5em", color: "whitesmoke" }
         return (
             <div>
                 {(this.state.showTripView) ?
                     <Wrapper>
-                        <button className="nav-back" onClick={this.props.toggleTripCards}><BsIcons.BsChevronLeft style={backBtnStyle} /></button>
-                        <button className="nav-add" onClick={this.toggleParkSearch}><BsIcons.BsPlusSquareFill style={addBtnStyle} /></button>
+                        <button className="nav-back" onClick={this.props.toggleTripCards}>back</button>
+                        <button className="nav-add" onClick={this.toggleParkSearch}>add park</button>
                         <div className="image-trip-overlap">
                             {(this.props.oneTrip.tripImage !== "") ?
                                 <img src={this.props.oneTrip.tripImage} /> :
@@ -104,13 +103,13 @@ export class TripView extends Component<TripViewProps, TripViewState> {
                             </div>
                         </div>
                         {this.props.oneTrip.parks.map((park) => {
-                            return <div>
-                                <p>{park.parkName}</p>
+                            return <CardWrapper>
+                                <p className="park-name">{park.parkName}</p>
                                 <p>{this.props.convertDate(park.parkStartDate)} - {this.props.convertDate(park.parkEndDate)}</p>
                                 <button onClick={() => { this.toggleParkView(); this.setParkId(park.id) }}>view</button>
                                 <button onClick={() => { this.setParkId(park.id); this.editBtn() }}>edit</button>
                                 <button onClick={() => { this.setParkId(park.id); this.deletePark() }}>delete</button>
-                            </div>
+                            </CardWrapper>
                         })}
                     </Wrapper> :
                     (this.state.showParkView && !this.state.showTripView && !this.state.showParkSearch) ?

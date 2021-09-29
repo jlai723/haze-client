@@ -90,7 +90,7 @@ export class ParkView extends Component<ParkViewProps, ParkViewState> {
     render() {
         return (
             <div>
-                <button onClick={this.props.toggleParkView}>{`back to ${this.props.oneTrip.tripName}`}</button>
+                <button onClick={this.props.toggleParkView}>back</button>
                 <img src={this.state.parkImage} alt={this.state.parkImageAlt} />
                 <h2>{this.state.parkName}</h2>
                 <h4>{this.props.convertDate(this.state.parkStartDate)} - {this.props.convertDate(this.state.parkEndDate)}</h4>

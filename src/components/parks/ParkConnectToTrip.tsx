@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import { SelectTripWrapper } from './ParkConnectToTrip.styles';
 import { trips } from '../types/tripType'
 
 type ParkConnectToTripProps = {
@@ -58,17 +59,17 @@ export class ParkConnectToTrip extends Component<ParkConnectToTripProps, ParkCon
 
     render() {
         return (
-            <div>
+            <SelectTripWrapper>
                 <p>which trip do you want to add this to?</p>
                 {this.state.tripData.map((trip) => {
                     return (
-                        <button onClick={() => {
+                        <button className="select-trip" onClick={() => {
                             this.selectTrip(trip.id);
                         }}>{trip.tripName}</button>
                     )
                 })}
-                <button onClick={this.handleSelect}>add to trip</button>
-            </div>
+                <button className="add-to-trip" onClick={this.handleSelect}>add to trip</button>
+            </SelectTripWrapper>
         )
     }
 }

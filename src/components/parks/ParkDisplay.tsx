@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import { Wrapper } from './ParkDisplay.styles';
 import { ParkCreate } from './ParkCreate';
 import { natlPark, activity, address, email, phone, eFee, pass, fee, image, oHours, except, topic } from '../types/natlParkType';
 import { ParkDetails } from './ParkDetails';
@@ -34,6 +35,7 @@ export interface ParkObj {
 }
 type ParkDisplayProps = {
     queriedParks: natlPark[] | [],
+    query: string,
     toggleParkCreate(): void,
     toggleParkDetails(): void,
     showParkSearchDisplay: boolean,
@@ -89,7 +91,7 @@ export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
                 states: "",
                 topics: [],
                 url: "",
-                weatherInfo: "",            
+                weatherInfo: "",
             },
         }
     }
@@ -111,11 +113,13 @@ export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
                 {(this.props.showParkSearchDisplay) ?
                     this.props.queriedParks.map((park) => {
                         return (
-                            <div>
-                                <h2>{park.fullName.toLowerCase()}</h2>
-                                <h5>{park.addresses[0].line1.toLowerCase()}, {park.addresses[0].city.toLowerCase()}, {park.addresses[0].stateCode.toLowerCase()} {park.addresses[0].postalCode}</h5>
-                                <img src={park.images[0].url} alt={park.images[0].altText} />
-                                <a href={park.url} target="_blank" rel="noreferrer">visit their site</a>
+                            <Wrapper>
+                                <div className="park-title">
+                                    <h2>{park.fullName.toLowerCase()}</h2>
+                                    <h5>{park.addresses[0].line1.toLowerCase()}, {park.addresses[0].city.toLowerCase()}, {park.addresses[0].stateCode.toLowerCase()} {park.addresses[0].postalCode}</h5>
+                                </div>
+                                <a href={park.url} target="_blank" rel="noreferrer"><img src={park.images[0].url} alt={park.images[0].altText} /></a>
+                                <div className="park-search-btns">
                                 <button onClick={() => {
                                     this.selectPark(park);
                                     this.props.toggleParkDetails();
@@ -131,29 +135,32 @@ export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
                                     this.selectparkCode(park.parkCode);
                                     this.selectParkUrl(park.url);
                                 }}>add to trip</button>
-                            </div>
+                                </div>
+                            </Wrapper>
                         )
                     }) :
+                    // (this.props.showParkSearchDisplay && this.props.queriedParks === []) ?
+                    // <p>{`No results found that match ${this.props.query}`}</p> :
                     (this.props.showParkCreate && !this.props.showParkSearchDisplay && !this.props.showParkDetails) ?
-                    <ParkCreate
-                    parkName={this.state.selectedParkName}
-                    parkAddress={this.state.selectedParkAddress}
-                    parkImage={this.state.selectedParkImage}
-                    parkImgAlt={this.state.parkImgAlt}
-                    parkCode={this.state.parkCode}
-                    parkUrl={this.state.parkUrl}
-                    tripId={this.props.tripId}
-                    token={this.props.token}
-                    fetchOneTrip={this.props.fetchOneTrip}
-                    toggleParkCreate={this.props.toggleParkCreate}
-                    /> :
-                    (this.props.showParkDetails && !this.props.showParkSearchDisplay && !this.props.showParkCreate) ?
-                    <ParkDetails 
-                        parkDetails={this.state.selectedPark}
-                        toggleParkDetails={this.props.toggleParkDetails}
-                    /> :
-                    <></>
-            }
+                        <ParkCreate
+                            parkName={this.state.selectedParkName}
+                            parkAddress={this.state.selectedParkAddress}
+                            parkImage={this.state.selectedParkImage}
+                            parkImgAlt={this.state.parkImgAlt}
+                            parkCode={this.state.parkCode}
+                            parkUrl={this.state.parkUrl}
+                            tripId={this.props.tripId}
+                            token={this.props.token}
+                            fetchOneTrip={this.props.fetchOneTrip}
+                            toggleParkCreate={this.props.toggleParkCreate}
+                        /> :
+                        (this.props.showParkDetails && !this.props.showParkSearchDisplay && !this.props.showParkCreate) ?
+                            <ParkDetails
+                                parkDetails={this.state.selectedPark}
+                                toggleParkDetails={this.props.toggleParkDetails}
+                            /> :
+                            <></>
+                }
             </div>
         )
     }

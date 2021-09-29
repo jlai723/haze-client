@@ -44,9 +44,11 @@ export const Wrapper = styled.div`
         display: flex;
         justify-content: end;
         align-items: center;
+        z-index: 10;
     }
     .menu-bars {
-        margin-right: 2rem;
+        margin-right: 0.75rem;
+        margin-top: 0.45rem;
         font-size: 2.5rem;
         background-color: none;
     }
@@ -60,6 +62,7 @@ export const Wrapper = styled.div`
         top: 0;
         right: -100%;
         transition: 850ms;
+        z-index: 10;
     }
     .nav-menu-active {
         background-color: rgba(199,211,175,1);
@@ -71,6 +74,7 @@ export const Wrapper = styled.div`
         top: 0;
         right: 0;
         transition: 350ms;
+        z-index: 10;
     }
     .nav-text {
         display: flex;

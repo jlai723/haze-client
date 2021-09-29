@@ -43,8 +43,13 @@ export const CardWrapper = styled.div`
         margin: 0.5em 0.5em;
     }
     p {
-        margin-left: 0.5em;
-        margin-bottom: 0.25em;
+        /* margin-left: 0.5em;
+        margin-bottom: 0.25em; */
+        margin: 0.5em 0.5em;
+    }
+    p.park-name {
+        font-size: 1.1em;
+        font-weight: 700;
     }
     button {
         display: flex;

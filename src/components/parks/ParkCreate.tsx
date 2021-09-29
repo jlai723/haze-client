@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+import { Wrapper } from './ParkCreate.styles';
 import { ParkConnectToTrip } from './ParkConnectToTrip';
 
 type ParkCreateProps = {
@@ -73,32 +75,33 @@ export class ParkCreate extends Component<ParkCreateProps, ParkCreateState> {
 
     render() {
         return (
-            <div>
-                <button onClick={this.props.toggleParkCreate}>back to search</button>
-                <img src={this.props.parkImage} alt={this.props.parkImgAlt} />
-                <p>name: {this.props.parkName}</p>
-                <p>address: {this.props.parkAddress}</p>
-                <a href={this.props.parkUrl} target="_blank" rel="noreferrer">park website</a>
-                <form onSubmit={this.handleSubmit}>
-                    <label>start date:</label>
-                    <input type="date" onChange={(e) => this.setSDate(e.target.value)}></input>
-                    <label>end date:</label>
-                    <input type="date" onChange={(e) => this.setEDate(e.target.value)}></input>
-                    <label>notes:</label>
-                    <input type="text" onChange={(e) => this.setNotes(e.target.value)}></input>
-                    <button type="submit" onClick={this.toggleParkConnect}>select trip</button>
-                </form>
-                {(this.state.showParkConnect) ?
-                    <ParkConnectToTrip
-                        parkId={this.state.parkId}
-                        tripId={this.props.tripId}
-                        token={this.props.token}
-                        fetchOneTrip={this.props.fetchOneTrip}
-                    /> :
-                    <></>
-                }
-                <button onClick={() => window.location.reload()}>cancel</button>
-            </div>
+            <Wrapper>
+                <button className="nav-back" onClick={this.props.toggleParkCreate}>back</button>
+                <a href={this.props.parkUrl} target="_blank" rel="noreferrer"><img src={this.props.parkImage} alt={this.props.parkImgAlt} /></a>
+                <div className="park-info">
+                    <p>name: {this.props.parkName}</p>
+                    <p>address: {this.props.parkAddress}</p>
+                    <form onSubmit={this.handleSubmit}>
+                        <label>start date:</label>
+                        <input type="date" onChange={(e) => this.setSDate(e.target.value)}></input>
+                        <label>end date:</label>
+                        <input type="date" onChange={(e) => this.setEDate(e.target.value)}></input>
+                        <label>notes:</label>
+                        <input type="text" onChange={(e) => this.setNotes(e.target.value)}></input>
+                        <button className="select-trip" type="submit" onClick={this.toggleParkConnect}>select trip</button>
+                    </form>
+                    {(this.state.showParkConnect) ?
+                        <ParkConnectToTrip
+                            parkId={this.state.parkId}
+                            tripId={this.props.tripId}
+                            token={this.props.token}
+                            fetchOneTrip={this.props.fetchOneTrip}
+                        /> :
+                        <></>
+                    }
+                    <button className="cancel" onClick={() => window.location.reload()}>cancel</button>
+                </div>
+            </Wrapper>
         )
     }
 }

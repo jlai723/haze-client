@@ -5,26 +5,32 @@ export const Wrapper = styled.div`
     width: 100vw;
     color: whitesmoke;
 
-    button.nav-back {
-        background-color: rgba(225,185,152,1);
-        border: none;
-        border-radius: 0.5rem;
-        display: flex;
-        float: left;
-        margin-top: 0.1em;
-        margin-left: 0.6em;
-        width: 3em;
-        height: 3em;
+    button {
         cursor: pointer;
     }
-    button.nav-add {
-        display: flex;
-        float: right;
-        margin-bottom: 0.5em;
-        margin-right: 0.25em;
-        background-color: transparent;
+    button.nav-back {
+        background-color: rgba(225,185,152,1);
+        color: whitesmoke;
+        font-size: 1em;
+        font-weight: 700;
         border: none;
-        cursor: pointer;
+        border-radius: 0.5rem;
+        width: 4em;
+        height: 2em;
+        margin-left: 0.5em;
+        margin-bottom: 0.5em;
+    }
+    button.nav-add {
+        background-color: rgba(225,185,152,1);
+        color: whitesmoke;
+        font-size: 1em;
+        font-weight: 700;
+        border: none;
+        border-radius: 0.5rem;
+        width: 6em;
+        height: 2em;
+        float: right;
+        margin-right: 0.5em;
     }
     img {
         min-width: 100vw;
@@ -35,9 +41,8 @@ export const Wrapper = styled.div`
         min-height: 40vh;
     }
     .trip-overlap {
-        z-index: 2;
         position: absolute;
-        top: 27vh;
+        top: 20vh;
     }
     .trip-notes {
         margin: 0.25em 1em;
@@ -47,5 +52,21 @@ export const Wrapper = styled.div`
     }
     h3.trip-notes {
         margin: 0.5em 0.8em;
+    }
+`
+
+export const ParkWrapper = styled.div`
+    background-color: rgba(145,162,80,1);
+    color: whitesmoke;
+    display: inline-block;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+
+    :nth-child(2) {
+        background-color: rgba(107,129,117,1);
+    }
+    :nth-child(3) {
+        background-color: rgba(67,48,76,1);
     }
 `
