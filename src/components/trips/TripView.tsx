@@ -9,7 +9,7 @@ import img5 from '../assets/trip-image-5.jpg';
 import img6 from '../assets/trip-image-6.jpg';
 
 import { Wrapper } from './TripView.styles';
-import { CardWrapper } from './TripCards.styles';
+import { CardWrapper, CardItemWrapper } from './TripCards.styles';
 import { ParkView, ParkSearch } from '../parks';
 import { trips } from '../types/tripType';
 import { park } from '../types/parkType';
@@ -102,15 +102,21 @@ export class TripView extends Component<TripViewProps, TripViewState> {
                                 <p className="trip-notes">trip notes: {this.props.oneTrip.tripNotes}</p>
                             </div>
                         </div>
-                        {this.props.oneTrip.parks.map((park) => {
-                            return <CardWrapper>
-                                <p className="park-name">{park.parkName}</p>
-                                <p>{this.props.convertDate(park.parkStartDate)} - {this.props.convertDate(park.parkEndDate)}</p>
-                                <button onClick={() => { this.toggleParkView(); this.setParkId(park.id) }}>view</button>
-                                <button onClick={() => { this.setParkId(park.id); this.editBtn() }}>edit</button>
-                                <button onClick={() => { this.setParkId(park.id); this.deletePark() }}>delete</button>
-                            </CardWrapper>
-                        })}
+                        <CardWrapper>
+                            {this.props.oneTrip.parks.map((park) => {
+                                return (
+                                    <CardItemWrapper>
+                                        <p className="park-name">{park.parkName}</p>
+                                        <p>{this.props.convertDate(park.parkStartDate)} - {this.props.convertDate(park.parkEndDate)}</p>
+                                        <div className="btns">
+                                            <button onClick={() => { this.toggleParkView(); this.setParkId(park.id) }}>view</button>
+                                            <button onClick={() => { this.setParkId(park.id); this.editBtn() }}>edit</button>
+                                            <button onClick={() => { this.setParkId(park.id); this.deletePark() }}>delete</button>
+                                        </div>
+                                    </CardItemWrapper>
+                                )
+                            })}
+                        </CardWrapper>
                     </Wrapper> :
                     (this.state.showParkView && !this.state.showTripView && !this.state.showParkSearch) ?
                         <ParkView

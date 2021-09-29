@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { Wrapper } from './ParkDisplay.styles';
+import { CardWrapper, CardItemWrapper } from '../trips/TripCards.styles';
 import { ParkCreate } from './ParkCreate';
 import { natlPark, activity, address, email, phone, eFee, pass, fee, image, oHours, except, topic } from '../types/natlParkType';
 import { ParkDetails } from './ParkDetails';
@@ -111,9 +112,11 @@ export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
         return (
             <div>
                 {(this.props.showParkSearchDisplay) ?
-                    this.props.queriedParks.map((park) => {
+                <CardWrapper>
+                    {this.props.queriedParks.map((park) => {
                         return (
-                            <Wrapper>
+                            <CardItemWrapper>
+                                <Wrapper>
                                 <div className="park-title">
                                     <h2>{park.fullName.toLowerCase()}</h2>
                                     <h5>{park.addresses[0].line1.toLowerCase()}, {park.addresses[0].city.toLowerCase()}, {park.addresses[0].stateCode.toLowerCase()} {park.addresses[0].postalCode}</h5>
@@ -136,9 +139,11 @@ export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
                                     this.selectParkUrl(park.url);
                                 }}>add to trip</button>
                                 </div>
-                            </Wrapper>
+                                </Wrapper>
+                            </CardItemWrapper>
                         )
-                    }) :
+                    })} 
+                </CardWrapper> :
                     // (this.props.showParkSearchDisplay && this.props.queriedParks === []) ?
                     // <p>{`No results found that match ${this.props.query}`}</p> :
                     (this.props.showParkCreate && !this.props.showParkSearchDisplay && !this.props.showParkDetails) ?

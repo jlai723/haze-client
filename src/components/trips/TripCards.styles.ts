@@ -25,20 +25,30 @@ export const MapWrapper = styled.div`
 `
 
 export const CardWrapper = styled.div`
-    background-color: rgba(145,162,80,1);
-    color: whitesmoke;
-    display: inline-block;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    @media (max-width: 800px) {
+        grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 400px) {
+        grid-template-columns: 1fr;
+    }
     width: 100vw;
     margin: 0;
     padding: 0;
+`
 
+export const CardItemWrapper = styled.div`
+    color: whitesmoke;
+    background-color: rgba(145,162,80,1);
+    
     :nth-child(2) {
         background-color: rgba(107,129,117,1);
     }
     :nth-child(3) {
         background-color: rgba(67,48,76,1);
     }
-
+    
     h3 {
         margin: 0.5em 0.5em;
     }
@@ -51,10 +61,12 @@ export const CardWrapper = styled.div`
         font-size: 1.1em;
         font-weight: 700;
     }
-    button {
+    div.btns {
         display: flex;
-        float: right;
+        justify-content: flex-end;
         margin-bottom: 0.5em;
+    }
+    button {
         margin-right: 0.5em;
         height: 2em;
         background-color: transparent;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as BsIcons from 'react-icons/bs';
 
-import { Wrapper, MapWrapper, CardWrapper } from './TripCards.styles';
+import { Wrapper, MapWrapper, CardWrapper, CardItemWrapper } from './TripCards.styles';
 import { TripView } from './TripView';
 import { trips } from '../types/tripType';
 import { park } from '../types/parkType';
@@ -46,7 +46,7 @@ export class TripCards extends Component<TripCardsProps, TripCardsState> {
     componentDidMount() {
         this.props.fetchTrips();
     }
-    
+
     render() {
         let addBtnStyle = { height: "3em", width: "3em", color: "rgba(225,185,152,1)" }
         return (
@@ -54,24 +54,28 @@ export class TripCards extends Component<TripCardsProps, TripCardsState> {
                 {(this.props.showTripCards) ?
                     <MapWrapper>
                         <button className="addTrip" onClick={this.props.toggleAddModal}><BsIcons.BsPlusSquareFill style={addBtnStyle} /></button>
-                        {this.props.tripData.map((trip) => {
-                            return (
-                                <CardWrapper>
-                                    <span>
-                                        <h3>{trip.tripName}</h3>
-                                        <p>{this.convertDate(trip.tripStartDate)} - {this.convertDate(trip.tripEndDate)}</p>
-                                    </span>
-                                    <p>
-                                        {trip.parks.map((park) => {
-                                            return <span> {park.parkName} <BsIcons.BsChevronDoubleRight /></span>
-                                        })}
-                                    </p>
-                                    <button onClick={() => { this.props.updateTrip(trip.id); this.props.fetchOneTrip(); this.props.toggleTripCards() }}>view</button>
-                                    <button onClick={() => { this.props.updateTrip(trip.id); this.editBtn() }}>edit</button>
-                                    <button onClick={() => { this.props.updateTrip(trip.id); this.props.deleteTrip() }}>delete</button>
-                                </CardWrapper>
-                            )
-                        })}
+                        <CardWrapper>
+                            {this.props.tripData.map((trip) => {
+                                return (
+                                    <CardItemWrapper>
+                                        <span>
+                                            <h3>{trip.tripName}</h3>
+                                            <p>{this.convertDate(trip.tripStartDate)} - {this.convertDate(trip.tripEndDate)}</p>
+                                        </span>
+                                        <p>
+                                            {trip.parks.map((park) => {
+                                                return <span> {park.parkName} <BsIcons.BsChevronDoubleRight /></span>
+                                            })}
+                                        </p>
+                                        <div className="btns">
+                                            <button onClick={() => { this.props.updateTrip(trip.id); this.props.fetchOneTrip(); this.props.toggleTripCards() }}>view</button>
+                                            <button onClick={() => { this.props.updateTrip(trip.id); this.editBtn() }}>edit</button>
+                                            <button onClick={() => { this.props.updateTrip(trip.id); this.props.deleteTrip() }}>delete</button>
+                                        </div>
+                                    </CardItemWrapper>
+                                )
+                            })}
+                        </CardWrapper>
                     </MapWrapper> :
                     <TripView
                         fetchOneTrip={this.props.fetchOneTrip}

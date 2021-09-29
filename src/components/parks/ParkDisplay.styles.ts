@@ -17,7 +17,6 @@ export const Wrapper = styled.div`
     }
 
     img {
-        min-width: 100vw;
         max-height: 40vh;
     }
 
