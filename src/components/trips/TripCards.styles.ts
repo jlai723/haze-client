@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-    margin-top: 6vh;
+    margin-top: 13vh;
     margin-bottom: 15vh;
 
     button {
@@ -56,5 +56,6 @@ export const CardWrapper = styled.div`
         border: 0.25em solid whitesmoke;
         border-radius: 0.3rem;
         color: whitesmoke;
+        cursor: pointer;
     }
 `

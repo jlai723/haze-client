@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Background, ModalWrapper, ModalContent, CloseModalBtn } from './TripCreateEdit.styles';
+import { Background, ModalWrapper, ModalContent, CloseModalBtn } from './TripEdit.styles';
 
 type TripEditProps = {
     tripToUpdate: number,

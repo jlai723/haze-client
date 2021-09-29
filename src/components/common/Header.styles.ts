@@ -12,7 +12,11 @@ export const Wrapper = styled.div`
     font-family: Montserrat, sans-serif;
     background-color: rgba(199,211,175,1);
 
-    button {
+    /* div.btn-links {
+        position: absolute;
+    } */
+
+    button.logo {
         margin-left: 0.25em;
         z-index: 2;
         position: absolute;
@@ -25,12 +29,88 @@ export const Wrapper = styled.div`
         font-weight: 900;
         cursor: pointer;
     }
-    `;
+    /* button.links {
+        background-color: transparent;
+        border: none;
+        color: whitesmoke;
+        font-family: Montserrat, sans-serif;
+        font-size: 1.5em;
+        font-weight: 600;
+    } */
+
+    div.navbar {
+        background-color: rgba(199,211,175,1);
+        height: 80px;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+    }
+    .menu-bars {
+        margin-right: 2rem;
+        font-size: 2.5rem;
+        background-color: none;
+    }
+    .nav-menu {
+        background-color: rgba(199,211,175,1);
+        width: 250px;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        transition: 850ms;
+    }
+    .nav-menu-active {
+        background-color: rgba(199,211,175,1);
+        width: 250px;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        right: 0;
+        transition: 350ms;
+    }
+    .nav-text {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        padding: 8px 0px 8px 16px;
+        list-style: none;
+        height: 60px;
+    }
+    .nav-text a {
+        text-decoration: none;
+        color: whitesmoke;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        width: 95%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        border-radius: 4px;
+    }
+    .nav-text a:hover {
+        color: rgba(67,48,76,1);
+    }
+    .nav-menu-items {
+        width: 100%;
+        padding-left: 10px;
+    }
+    .navbar-toggle {
+        background-color: rgba(199,211,175,1);
+        width: 100%;
+        height: 80px;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+    }
+    `
 
 export const NavWrapper = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    z-index: 1;
     font-family: Montserrat, sans-serif;
     
     a {
@@ -43,5 +123,5 @@ export const NavWrapper = styled.div`
         padding-right: 1em;
         z-index: 2;
     }
-
+    
 `

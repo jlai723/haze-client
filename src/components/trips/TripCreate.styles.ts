@@ -5,11 +5,12 @@ export const Background = styled.div`
     width: 100vw;
     height: 100vh;
     background: rgba(0,0,0,0.8);
-    /* position: fixed; */
+    position: fixed;
+    top: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1;
+    z-index: 2;
     margin: 0;
     padding: 0;
 `
@@ -25,7 +26,6 @@ export const ModalWrapper = styled.div`
     align-items: center;
     justify-content: center;
     position: relative;
-    bottom: 3em;
     z-index: 2;
     border-radius: 1rem;
 `

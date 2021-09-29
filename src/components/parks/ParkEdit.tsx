@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Background, ModalWrapper, ModalContent, CloseModalBtn } from '../trips/TripCreateEdit.styles';
+import { Background, ModalWrapper, ModalContent, CloseModalBtn } from '../trips/TripEdit.styles';
 
 type ParkEditProps = {
     tripId: number,

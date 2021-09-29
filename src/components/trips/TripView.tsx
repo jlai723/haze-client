@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
+import * as BsIcons from 'react-icons/bs';
 
+import img1 from '../assets/trip-image-1.jpg';
+import img2 from '../assets/trip-image-2.jpg';
+import img3 from '../assets/trip-image-3.jpg';
+import img4 from '../assets/trip-image-4.jpg';
+import img5 from '../assets/trip-image-5.jpg';
+import img6 from '../assets/trip-image-6.jpg';
+
+import { Wrapper } from './TripView.styles';
 import { ParkView, ParkSearch } from '../parks';
 import { trips } from '../types/tripType';
 import { park } from '../types/parkType';
@@ -13,6 +22,7 @@ type TripViewProps = {
     token: string | null,
     tripId: number,
     toggleTripCards(): void,
+    convertDate(date: string): void,
 };
 type TripViewState = {
     parkId: number,
@@ -52,26 +62,6 @@ export class TripView extends Component<TripViewProps, TripViewState> {
         this.props.fetchOneTrip();
     }
 
-    toggleEditModal = () => {
-        this.setState({ showEditModal: !this.state.showEditModal })
-    }
-    toggleParkSearch = () => {
-        this.setState({
-            showTripView: !this.state.showTripView,
-            showParkSearch: !this.state.showParkSearch
-        })
-    }
-    toggleParkView = () => {
-        this.setState({
-            showTripView: !this.state.showTripView,
-            showParkView: !this.state.showParkView
-        })
-    }
-
-    editBtn = () => {
-        this.updateOn();
-        this.toggleEditModal();
-    }
 
     deletePark = () => {
         fetch(`http://localhost:3000/park/${this.props.tripId}/delete/${this.state.parkId}`, {
@@ -84,29 +74,45 @@ export class TripView extends Component<TripViewProps, TripViewState> {
     }
 
     render() {
+        let addBtnStyle = { height: "3em", width: "3em", color: "rgba(225,185,152,1)" }
+        let backBtnStyle = { height: "2.5em", width: "2.5em", color: "whitesmoke" }
         return (
             <div>
                 {(this.state.showTripView) ?
-                    <div>
-                        <button onClick={this.toggleParkSearch}>add park</button>
-                        <br />
-                        {(this.props.oneTrip.tripImage !== "") ?
-                            <img src={this.props.oneTrip.tripImage} /> :
-                            <img src="https://images.fineartamerica.com/images-medium-large-5/great-smoky-mountains-national-park-morning-haze-at-oconaluftee-dave-allen.jpg" />
-                        }
-                        <h1>{this.props.oneTrip.tripName}</h1>
-                        <h3>{this.props.oneTrip.tripStartDate} - {this.props.oneTrip.tripEndDate}</h3>
-                        <p>{this.props.oneTrip.tripNotes}</p>
+                    <Wrapper>
+                        <button className="nav-back" onClick={this.props.toggleTripCards}><BsIcons.BsChevronLeft style={backBtnStyle} /></button>
+                        <button className="nav-add" onClick={this.toggleParkSearch}><BsIcons.BsPlusSquareFill style={addBtnStyle} /></button>
+                        <div className="image-trip-overlap">
+                            {(this.props.oneTrip.tripImage !== "") ?
+                                <img src={this.props.oneTrip.tripImage} /> :
+                                ((this.props.oneTrip.id % 2 === 0) && (this.props.oneTrip.id % 4 !== 0)) ?
+                                    <img src={img2} /> :
+                                    ((this.props.oneTrip.id % 3 === 0) && (this.props.oneTrip.id % 6 !== 0)) ?
+                                        <img src={img3} /> :
+                                        (this.props.oneTrip.id % 4 === 0) ?
+                                            <img src={img4} /> :
+                                            (this.props.oneTrip.id % 5 === 0) ?
+                                                <img src={img5} /> :
+                                                (this.props.oneTrip.id % 6 === 0) ?
+                                                    <img src={img6} /> :
+                                                    <img src={img1} />
+                            }
+                            <div className="trip-overlap">
+                                <h1 className="trip-notes">{this.props.oneTrip.tripName}</h1>
+                                <h3 className="trip-notes">{this.props.convertDate(this.props.oneTrip.tripStartDate)} - {this.props.convertDate(this.props.oneTrip.tripEndDate)}</h3>
+                                <p className="trip-notes">trip notes: {this.props.oneTrip.tripNotes}</p>
+                            </div>
+                        </div>
                         {this.props.oneTrip.parks.map((park) => {
                             return <div>
                                 <p>{park.parkName}</p>
+                                <p>{this.props.convertDate(park.parkStartDate)} - {this.props.convertDate(park.parkEndDate)}</p>
                                 <button onClick={() => { this.toggleParkView(); this.setParkId(park.id) }}>view</button>
                                 <button onClick={() => { this.setParkId(park.id); this.editBtn() }}>edit</button>
                                 <button onClick={() => { this.setParkId(park.id); this.deletePark() }}>delete</button>
                             </div>
                         })}
-                        <button onClick={this.props.toggleTripCards}>back to trips</button>
-                    </div> :
+                    </Wrapper> :
                     (this.state.showParkView && !this.state.showTripView && !this.state.showParkSearch) ?
                         <ParkView
                             tripId={this.props.tripId}
@@ -133,16 +139,17 @@ export class TripView extends Component<TripViewProps, TripViewState> {
                             toggleEditModal={this.toggleEditModal}
                             fetchOneTrip={this.props.fetchOneTrip}
                             deletePark={this.deletePark}
+                            convertDate={this.props.convertDate}
                         /> :
-                    (this.state.showParkSearch && !this.state.showTripView && !this.state.showParkView) ?
-                        <ParkSearch
-                            token={this.props.token}
-                            tripId={this.props.tripId}
-                            fetchOneTrip={this.props.fetchOneTrip}
-                            oneTrip={this.props.oneTrip}
-                            toggleParkSearch={this.toggleParkSearch}
-                        /> :
-                    <></>
+                        (this.state.showParkSearch && !this.state.showTripView && !this.state.showParkView) ?
+                            <ParkSearch
+                                token={this.props.token}
+                                tripId={this.props.tripId}
+                                fetchOneTrip={this.props.fetchOneTrip}
+                                oneTrip={this.props.oneTrip}
+                                toggleParkSearch={this.toggleParkSearch}
+                            /> :
+                            <></>
                 }
                 {this.state.updateActive ?
                     <ParkEdit
@@ -172,6 +179,26 @@ export class TripView extends Component<TripViewProps, TripViewState> {
         )
     }
 
+    toggleEditModal = () => {
+        this.setState({ showEditModal: !this.state.showEditModal })
+    }
+    toggleParkSearch = () => {
+        this.setState({
+            showTripView: !this.state.showTripView,
+            showParkSearch: !this.state.showParkSearch
+        })
+    }
+    toggleParkView = () => {
+        this.setState({
+            showTripView: !this.state.showTripView,
+            showParkView: !this.state.showParkView
+        })
+    }
+
+    editBtn = () => {
+        this.updateOn();
+        this.toggleEditModal();
+    }
     setParkId = (newParkId: number) => {
         this.setState({ parkId: newParkId })
     }

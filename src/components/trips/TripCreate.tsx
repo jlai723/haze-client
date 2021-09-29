@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Background, ModalWrapper, ModalContent, CloseModalBtn } from './TripCreateEdit.styles';
+import { Background, ModalWrapper, ModalContent, CloseModalBtn } from './TripCreate.styles';
 
 type TripCreateProps = {
     token: string | null,

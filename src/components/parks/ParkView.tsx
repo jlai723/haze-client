@@ -29,6 +29,7 @@ type ParkViewProps = {
     toggleEditModal(): void,
     fetchOneTrip(): void,
     deletePark(): void,
+    convertDate(date: string): void,
 }
 type ParkViewState = {
     parkAddress: string,
@@ -89,9 +90,10 @@ export class ParkView extends Component<ParkViewProps, ParkViewState> {
     render() {
         return (
             <div>
+                <button onClick={this.props.toggleParkView}>{`back to ${this.props.oneTrip.tripName}`}</button>
                 <img src={this.state.parkImage} alt={this.state.parkImageAlt} />
                 <h2>{this.state.parkName}</h2>
-                <h4>{this.state.parkStartDate} - {this.state.parkEndDate}</h4>
+                <h4>{this.props.convertDate(this.state.parkStartDate)} - {this.props.convertDate(this.state.parkEndDate)}</h4>
                 <h4>{this.state.parkAddress}</h4>
                 <a href={this.state.parkUrl} target="_blank" rel="noreferrer">visit their site</a>
                 <p>my notes: {this.state.parkNotes}</p>
@@ -104,7 +106,6 @@ export class ParkView extends Component<ParkViewProps, ParkViewState> {
                     this.props.deletePark();
                     window.location.reload();
                 }}>delete</button>
-                <button onClick={this.props.toggleParkView}>{`back to ${this.props.oneTrip.tripName}`}</button>
                 {this.props.updateActive ?
                     <ParkEdit
                         tripId={this.props.tripId}

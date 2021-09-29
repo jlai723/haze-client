@@ -6,6 +6,8 @@ import { Header, Footer } from './components/common';
 import { Portal } from './components/auth';
 import { TripsIndex } from './components/trips';
 import { ParkSearch } from './components/parks';
+import { UserProfile } from './components/profile/UserProfile';
+import { AdminDashboard } from './components/admin/AdminDashboard';
 
 type AppProps = {};
 type AppState = {
@@ -53,6 +55,12 @@ class App extends Component<AppProps, AppState> {
           </Route>
           <Route exact path="/trips">
             <TripsIndex sessionToken={this.state.sessionToken} />
+          </Route>
+          <Route exact path="/profile">
+            <UserProfile />
+          </Route> 
+          <Route exact path="/admin">
+            <AdminDashboard />
           </Route> 
         </Switch>
         <Footer />

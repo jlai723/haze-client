@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BsChevronDoubleRight, BsPlusSquareFill } from 'react-icons/bs';
+import * as BsIcons from 'react-icons/bs';
 
 import { Wrapper, MapWrapper, CardWrapper } from './TripCards.styles';
 import { TripView } from './TripView';
@@ -46,36 +46,24 @@ export class TripCards extends Component<TripCardsProps, TripCardsState> {
     componentDidMount() {
         this.props.fetchTrips();
     }
-    editBtn = () => {
-        this.props.updateOn();
-        this.props.toggleEditModal();
-    }
-
+    
     render() {
         let addBtnStyle = { height: "3em", width: "3em", color: "rgba(225,185,152,1)" }
         return (
             <Wrapper>
                 {(this.props.showTripCards) ?
                     <MapWrapper>
-                        <button className="addTrip" onClick={this.props.toggleAddModal}><BsPlusSquareFill style={addBtnStyle} /></button>
+                        <button className="addTrip" onClick={this.props.toggleAddModal}><BsIcons.BsPlusSquareFill style={addBtnStyle} /></button>
                         {this.props.tripData.map((trip) => {
-                            let sD = new Date(trip.tripStartDate);
-                            let sMonth = sD.getMonth();
-                            let sDate = sD.getDate();
-                            let sYear = sD.getFullYear();
-                            let eD = new Date(trip.tripStartDate);
-                            let eMonth = eD.getMonth();
-                            let eDate = eD.getDate();
-                            let eYear = eD.getFullYear();
                             return (
                                 <CardWrapper>
                                     <span>
                                         <h3>{trip.tripName}</h3>
-                                        <p>{`${sMonth}/${sDate}/${sYear}`} - {`${eMonth}/${eDate}/${eYear}`}</p>
+                                        <p>{this.convertDate(trip.tripStartDate)} - {this.convertDate(trip.tripEndDate)}</p>
                                     </span>
                                     <p>
                                         {trip.parks.map((park) => {
-                                            return <span> {park.parkName} <BsChevronDoubleRight /></span>
+                                            return <span> {park.parkName} <BsIcons.BsChevronDoubleRight /></span>
                                         })}
                                     </p>
                                     <button onClick={() => { this.props.updateTrip(trip.id); this.props.fetchOneTrip(); this.props.toggleTripCards() }}>view</button>
@@ -92,9 +80,22 @@ export class TripCards extends Component<TripCardsProps, TripCardsState> {
                         token={this.props.token}
                         tripId={this.props.tripToUpdate}
                         toggleTripCards={this.props.toggleTripCards}
+                        convertDate={this.convertDate}
                     />
                 }
             </Wrapper>
         )
+    }
+
+    editBtn = () => {
+        this.props.updateOn();
+        this.props.toggleEditModal();
+    }
+    convertDate = (date: string) => {
+        let newDate = new Date(date);
+        let newMonth = newDate.getMonth();
+        let newDay = newDate.getDate();
+        let newYear = newDate.getFullYear();
+        return `${newMonth}/${newDay}/${newYear}`;
     }
 }
