@@ -57,8 +57,6 @@ export const ModalContent = styled.div`
         border: none;
         border-bottom: 0.2em solid whitesmoke;
         background: none;
-    }
-    input[type="date"] {
         color: whitesmoke;
         font-family: Montserrat, sans-serif;
     }
