@@ -5,7 +5,7 @@ switch (window.location.hostname) {
         APIURL = 'http://localhost:3000';
         break;
         case 'haze-client-jjl.herokuapp.com' :
-            APIURL = 'https://haze-client-jjl.herokuapp.com'
+            APIURL = 'https://haze-server-jjl.herokuapp.com'
 }
 
 export default APIURL;
