@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { user } from '../types/userType';
 import { Wrapper, TableWrapper } from './AdminDashboard.styles'
+import APIURL from '../../helpers/environment';
 
 type AdminDashboardProps = {
     toggleAdmin(): void,
@@ -26,7 +27,7 @@ export class AdminDashboard extends Component <AdminDashboardProps, AdminDashboa
     }
 
     fetchUsers = () => {
-        fetch('http://localhost:3000/user/all', {
+        fetch(`${APIURL}/user/all`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -36,7 +37,7 @@ export class AdminDashboard extends Component <AdminDashboardProps, AdminDashboa
         .then((userData) => this.setState({ users: userData }))
     }
     deleteUser = () => {
-        fetch(`http://localhost:3000/user/delete/${this.state.userId}`, {
+        fetch(`${APIURL}/user/delete/${this.state.userId}`, {
             method: 'DELETE',
             headers: new Headers({
                 'Content-Type': 'application/json',

@@ -12,6 +12,7 @@ import { CardWrapper, CardItemWrapper } from './TripCards.styles';
 import { ParkView, ParkSearch } from '../parks';
 import { TripObj } from './TripsIndex';
 import { ParkEdit } from '../parks/ParkEdit';
+import APIURL from '../../helpers/environment';
 
 type TripViewProps = {
     fetchOneTrip(): void,
@@ -62,7 +63,7 @@ export class TripView extends Component<TripViewProps, TripViewState> {
 
 
     deletePark = () => {
-        fetch(`http://localhost:3000/park/${this.props.tripId}/delete/${this.state.parkId}`, {
+        fetch(`${APIURL}/park/${this.props.tripId}/delete/${this.state.parkId}`, {
             method: 'DELETE',
             headers: new Headers({
                 'Content-Type': 'application/json',

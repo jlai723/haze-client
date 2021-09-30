@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { Background, ModalWrapper, ModalContent, CloseModalBtn } from './TripCreate.styles';
+import APIURL from '../../helpers/environment';
 
 type TripCreateProps = {
     token: string | null,
@@ -26,7 +27,7 @@ export class TripCreate extends Component<TripCreateProps, {}> {
     }
 
     handleSubmit = (e: React.FormEvent) => {
-        fetch("http://localhost:3000/trip/create", {
+        fetch(`${APIURL}/trip/create`, {
             method: 'POST',
             body: JSON.stringify({
                 trip: {

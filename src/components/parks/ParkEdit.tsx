@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { Background, ModalWrapper, ModalContent, CloseModalBtn } from '../trips/TripEdit.styles';
 import { EditParkInfoWrapper } from './ParkEdit.styles';
+import APIURL from '../../helpers/environment';
 
 type ParkEditProps = {
     tripId: number,
@@ -37,7 +38,7 @@ export class ParkEdit extends Component<ParkEditProps, {}> {
     }
 
     fetchOnePark = () => {
-        fetch(`http://localhost:3000/park/${this.props.tripId}/${this.props.parkId}`, {
+        fetch(`${APIURL}/park/${this.props.tripId}/${this.props.parkId}`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -54,7 +55,7 @@ export class ParkEdit extends Component<ParkEditProps, {}> {
 
     submitParkEdit = (e: React.FormEvent) => {
         e.preventDefault();
-        fetch(`http://localhost:3000/park/${this.props.tripId}/update/${this.props.parkId}`, {
+        fetch(`${APIURL}/park/${this.props.tripId}/update/${this.props.parkId}`, {
             method: 'PUT',
             body: JSON.stringify({
                 park: {

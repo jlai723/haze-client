@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
 
 import { Wrapper } from './Login.styles';
+import APIURL from '../../helpers/environment';
 
 type LoginProps = {
     username: string,
@@ -27,7 +28,7 @@ export class Login extends Component<LoginProps, LoginState> {
 
     handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-            fetch("http://localhost:3000/user/login", {
+            fetch(`${APIURL}/user/login`, {
                 method: 'POST',
                 body: JSON.stringify({ user: { username: this.props.username, password: this.props.password } }),
                 headers: new Headers({

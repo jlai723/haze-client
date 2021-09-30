@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
 
 import { Wrapper } from './Register.styles';
+import APIURL from '../../helpers/environment';
 
 type RegisterProps = {
     firstName: string,
@@ -43,7 +44,7 @@ export class Register extends Component<RegisterProps, RegisterState> {
 
     handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-            fetch("http://localhost:3000/user/register", {
+            fetch(`${APIURL}/user/register`, {
                 method: 'POST',
                 body: JSON.stringify({ user: { firstName: this.props.firstName, lastName: this.props.lastName, username: this.props.username, email: this.props.email, password: this.props.password, role: this.props.role } }),
                 headers: new Headers({

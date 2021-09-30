@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { Background, ModalWrapper, ModalContent, CloseModalBtn } from './TripEdit.styles';
+import APIURL from '../../helpers/environment';
 
 type TripEditProps = {
     tripToUpdate: number,
@@ -31,7 +32,7 @@ export class TripEdit extends Component<TripEditProps, TripEditState> {
 
     handleSubmitEdit = (e: React.FormEvent) => {
         e.preventDefault();
-        fetch(`http://localhost:3000/trip/update/${this.props.tripToUpdate}`, {
+        fetch(`${APIURL}/trip/update/${this.props.tripToUpdate}`, {
             method: 'PUT',
             body: JSON.stringify({
                 trip: {

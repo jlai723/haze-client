@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { SelectTripWrapper } from './ParkConnectToTrip.styles';
 import { trips } from '../types/tripType'
+import APIURL from '../../helpers/environment';
 
 type ParkConnectToTripProps = {
     parkId: number,
@@ -28,7 +29,7 @@ export class ParkConnectToTrip extends Component<ParkConnectToTripProps, ParkCon
     }
 
     fetchTrips = () => {
-        fetch("http://localhost:3000/trip/all", {
+        fetch(`${APIURL}/trip/all`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -46,7 +47,7 @@ export class ParkConnectToTrip extends Component<ParkConnectToTripProps, ParkCon
 
     handleSelect = () => {
         if(this.state.selectedTripId !== 0) {
-            fetch(`http://localhost:3000/park/${this.state.selectedTripId}/addpark/${this.props.parkId}`, {
+            fetch(`${APIURL}/park/${this.state.selectedTripId}/addpark/${this.props.parkId}`, {
                 method: 'POST',
                 headers: new Headers({
                     'Content-Type': 'application/json',

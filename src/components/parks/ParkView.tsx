@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Wrapper } from '../trips/TripView.styles';
 import { ParkEdit } from './ParkEdit';
 import { TripObj } from "../trips/TripsIndex";
+import APIURL from '../../helpers/environment';
 
 type ParkViewProps = {
     tripId: number,
@@ -64,7 +65,7 @@ export class ParkView extends Component<ParkViewProps, ParkViewState> {
     }
 
     fetchOnePark = () => {
-        fetch(`http://localhost:3000/park/${this.props.tripId}/${this.props.parkId}`, {
+        fetch(`${APIURL}/park/${this.props.tripId}/${this.props.parkId}`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',

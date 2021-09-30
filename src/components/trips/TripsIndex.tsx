@@ -7,6 +7,7 @@ import { TripEdit } from './TripEdit';
 import { trips } from '../types/tripType';
 import { park } from '../types/parkType';
 import { Wrapper } from './TripsIndex.styles'
+import APIURL from '../../helpers/environment';
 
 export interface TripObj {
     createdAt: string;
@@ -72,7 +73,7 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
     }
 
     fetchTrips = () => {
-        fetch("http://localhost:3000/trip/all", {
+        fetch(`${APIURL}/trip/all`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -85,7 +86,7 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
     }
 
     fetchOneTrip = () => {
-        fetch(`http://localhost:3000/trip/${this.state.tripToUpdate}`, {
+        fetch(`${APIURL}/trip/${this.state.tripToUpdate}`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -100,7 +101,7 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
     }
 
     deleteTrip = () => {
-        fetch(`http://localhost:3000/trip/delete/${this.state.tripToUpdate}`, {
+        fetch(`${APIURL}/trip/delete/${this.state.tripToUpdate}`, {
             method: 'DELETE',
             headers: new Headers({
                 'Content-Type': 'application/json',

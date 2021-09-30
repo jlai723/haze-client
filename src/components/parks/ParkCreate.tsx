@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { Wrapper } from './ParkCreate.styles';
 import { ParkConnectToTrip } from './ParkConnectToTrip';
+import APIURL from '../../helpers/environment';
 
 type ParkCreateProps = {
     parkName: string,
@@ -37,7 +38,7 @@ export class ParkCreate extends Component<ParkCreateProps, ParkCreateState> {
 
     handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        fetch(`http://localhost:3000/park/${this.props.tripId}/create`, {
+        fetch(`${APIURL}/park/${this.props.tripId}/create`, {
             method: 'POST',
             body: JSON.stringify({
                 park: {
