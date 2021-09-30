@@ -48,8 +48,6 @@ export const ModalContent = styled.div`
     form {
         display: flex;
         flex-direction: column;
-        /* justify-content: center;
-        align-items: center; */
         text-align: left;
     }
     label {

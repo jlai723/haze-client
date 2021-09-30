@@ -4,11 +4,11 @@ import { Switch, Route } from 'react-router-dom';
 import { Header, Footer } from './components/common';
 import { Portal } from './components/auth';
 import { TripsIndex } from './components/trips';
-import { AdminDashboard } from './components/admin/AdminDashboard';
 
 type AppProps = {};
 type AppState = {
   sessionToken: string | null,
+  userRole: string | null,
 };
 
 class App extends Component<AppProps, AppState> {
@@ -16,6 +16,7 @@ class App extends Component<AppProps, AppState> {
     super(props);
     this.state = {
       sessionToken: '',
+      userRole: '',
     }
   }
 
@@ -25,12 +26,23 @@ class App extends Component<AppProps, AppState> {
         sessionToken: localStorage.getItem('token'),
       })
     };
+    if (localStorage.getItem('role')) {
+      this.setState({
+        userRole: localStorage.getItem('role'),
+      })
+    };
   }
 
   updateToken = (newToken: string) => {
     localStorage.setItem('token', newToken);
     this.setState({
       sessionToken: newToken,
+    });
+  }
+  updateUserRole = (newRole: string) => {
+    localStorage.setItem('role', newRole);
+    this.setState({
+      userRole: newRole,
     });
   }
 
@@ -47,14 +59,11 @@ class App extends Component<AppProps, AppState> {
         <Header logout={this.clearToken} token={this.state.sessionToken} />
         <Switch>
           <Route exact path="/">
-            <Portal updateToken={this.updateToken} sessionToken={this.state.sessionToken} />
+            <Portal updateToken={this.updateToken} sessionToken={this.state.sessionToken} updateUserRole={this.updateUserRole} userRole={this.state.userRole} />
           </Route>
           <Route exact path="/trips">
-            <TripsIndex sessionToken={this.state.sessionToken} />
+            <TripsIndex sessionToken={this.state.sessionToken} userRole={this.state.userRole} />
           </Route>
-          <Route exact path="/admin">
-            <AdminDashboard />
-          </Route> 
         </Switch>
         <Footer />
       </div>

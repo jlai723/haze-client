@@ -5,6 +5,7 @@ import { Wrapper, MapWrapper, CardWrapper, CardItemWrapper } from './TripCards.s
 import { TripView } from './TripView';
 import { trips } from '../types/tripType';
 import { park } from '../types/parkType';
+import { AdminDashboard } from '../admin/AdminDashboard';
 
 interface TripObj {
     createdAt: string;
@@ -32,6 +33,9 @@ type TripCardsProps = {
     oneTrip: TripObj,
     showTripCards: boolean,
     toggleTripCards(): void,
+    userRole: string | null,
+    showAdmin: boolean,
+    toggleAdmin(): void,
 };
 type TripCardsState = {
 };
@@ -53,6 +57,10 @@ export class TripCards extends Component<TripCardsProps, TripCardsState> {
             <Wrapper>
                 {(this.props.showTripCards) ?
                     <MapWrapper>
+                        {(this.props.userRole === "admin" ? 
+                        <button className="admin" onClick={this.props.toggleAdmin}>admin access</button> :
+                        <></>
+                        )}
                         <button className="addTrip" onClick={this.props.toggleAddModal}><BsIcons.BsPlusSquareFill style={addBtnStyle} /></button>
                         <CardWrapper>
                             {this.props.tripData.map((trip) => {
@@ -77,6 +85,11 @@ export class TripCards extends Component<TripCardsProps, TripCardsState> {
                             })}
                         </CardWrapper>
                     </MapWrapper> :
+                    (this.props.showAdmin && !this.props.showTripCards) ?
+                    <AdminDashboard 
+                        toggleAdmin={this.props.toggleAdmin}
+                        token={this.props.token}
+                    /> :
                     <TripView
                         fetchOneTrip={this.props.fetchOneTrip}
                         fetchTrips={this.props.fetchTrips}

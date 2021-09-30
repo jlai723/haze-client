@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
 
     button {
         font-family: Montserrat, sans-serif;
+        cursor: pointer;
     }
 `
 
@@ -13,6 +14,18 @@ export const MapWrapper = styled.div`
     margin: 0;
     padding: 0;
 
+    .admin {
+        background-color: rgba(225,185,152,1);
+        color: whitesmoke;
+        font-size: 1em;
+        font-weight: 700;
+        border: none;
+        border-radius: 0.5rem;
+        width: 8em;
+        height: 2em;
+        margin-left: 0.5em;
+        margin-bottom: 0.5em;
+    }
     button.addTrip {
         display: flex;
         float: right;
@@ -20,7 +33,6 @@ export const MapWrapper = styled.div`
         margin-right: 0.25em;
         background-color: transparent;
         border: none;
-        cursor: pointer;
     }
 `
 
@@ -53,8 +65,6 @@ export const CardItemWrapper = styled.div`
         margin: 0.5em 0.5em;
     }
     p {
-        /* margin-left: 0.5em;
-        margin-bottom: 0.25em; */
         margin: 0.5em 0.5em;
     }
     p.park-name {

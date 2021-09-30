@@ -54,11 +54,6 @@ export class Header extends Component<HeaderProps, HeaderState> {
                                 </Link>
                             </li>
                             <li className="nav-text">
-                                <Link to="/admin">
-                                    <span>admin dashboard</span>
-                                </Link>
-                            </li>
-                            <li className="nav-text">
                                 <a onClick={this.props.logout}>logout</a>
                             </li>
                         </ul>

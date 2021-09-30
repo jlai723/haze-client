@@ -103,7 +103,6 @@ export class ParkView extends Component<ParkViewProps, ParkViewState> {
                 </div>
                 <p className="park-notes">my notes: {this.state.parkNotes}</p>
                 <div className="park-btns">
-                    {/* <button className="view-park-btn">view park details</button> */}
                     <button className="edit-park-btn" onClick={() => {
                         this.props.updateOn();
                         this.props.toggleEditModal();

@@ -10,6 +10,8 @@ type LoginProps = {
     updateToken(newToken: string): void,
     setUsername(newUsername: string): void,
     setPassword(newPassword: string): void,
+    updateUserRole(newRole: string): void,
+    userRole: string | null,
 }
 type LoginState = {
     hidePassword: string,
@@ -32,7 +34,7 @@ export class Login extends Component<LoginProps, LoginState> {
                     'Content-Type': 'application/json'
                 })
             }).then(res => res.json())
-                .then(data => { this.props.updateToken(data.sessionToken) })
+                .then(data => { this.props.updateToken(data.sessionToken); this.props.updateUserRole(data.user.role) })
                 .catch(err => console.log(err))
     };
 

@@ -8,6 +8,8 @@ import { Register } from './Register';
 type PortalProps = {
     updateToken(newToken: string): void,
     sessionToken: string | null,
+    updateUserRole(newRole: string): void,
+    userRole: string | null,
 }
 type PortalState = {
     showLandingPage: boolean,
@@ -72,6 +74,8 @@ export class Portal extends Component<PortalProps, PortalState> {
                             updateToken={this.props.updateToken}
                             setUsername={this.setUsername}
                             setPassword={this.setPassword}
+                            updateUserRole={this.props.updateUserRole}
+                            userRole={this.props.userRole}
                         />
                         : <Register
                             firstName={this.state.firstName}
@@ -90,6 +94,8 @@ export class Portal extends Component<PortalProps, PortalState> {
                             setEmail={this.setEmail}
                             setCPassword={this.setCPassword}
                             setRole={this.setRole}
+                            updateUserRole={this.props.updateUserRole}
+                            userRole={this.props.userRole}
                         />
                 }
             </div>

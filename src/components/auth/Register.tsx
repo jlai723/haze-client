@@ -20,6 +20,8 @@ type RegisterProps = {
     setEmail(newEmail: string): void,
     setCPassword(newCPassword: string): void,
     setRole(newRole: string): void,
+    updateUserRole(newRole: string): void,
+    userRole: string | null,
 }
 type RegisterState = {
     hidePassword: string,
@@ -48,7 +50,7 @@ export class Register extends Component<RegisterProps, RegisterState> {
                     'Content-Type': 'application/json'
                 })
             }).then(res => res.json())
-                .then(data => { this.props.updateToken(data.sessionToken) })
+                .then(data => { this.props.updateToken(data.sessionToken); this.props.updateUserRole(data.user.role) })
                 .catch(err => console.log(err))
     }
 

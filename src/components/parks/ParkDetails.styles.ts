@@ -51,7 +51,6 @@ export const AccordionSection = styled.div`
     justify-content: center;
     position: relative;
     height: 100vh;
-    /* background: rgba(107,129,117) */
 `
 export const Container = styled.div`
     min-width: 100vw;
@@ -78,10 +77,7 @@ export const Wrap = styled.div`
 `
 export const Dropdown = styled.div`
     background: rgba(145,162,80,1);
-    /* min-width: 100%;
-    max-width: 100%; */
     height: 100%;
-    /* max-height: 100vh; */
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -26,7 +26,6 @@ export class TripCreate extends Component<TripCreateProps, {}> {
     }
 
     handleSubmit = (e: React.FormEvent) => {
-        // e.preventDefault();
         fetch("http://localhost:3000/trip/create", {
             method: 'POST',
             body: JSON.stringify({
@@ -69,8 +68,6 @@ export class TripCreate extends Component<TripCreateProps, {}> {
                                     <input type="date" onChange={(e) => this.props.setSDate(e.target.value)}></input>
                                     <label>end date: </label>
                                     <input type="date" onChange={(e) => this.props.setEDate(e.target.value)}></input>
-                                    {/* <label>upload an image: </label>
-                    <input></input> */}
                                     <label>notes: </label>
                                     <input onChange={(e) => this.props.setNotes(e.target.value)}></input>
                                     <button type="submit">add</button>

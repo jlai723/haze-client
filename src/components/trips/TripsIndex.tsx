@@ -22,6 +22,7 @@ export interface TripObj {
 };
 type TripsIndexProps = {
     sessionToken: string | null,
+    userRole: string | null,
 };
 type TripsIndexState = {
     tripName: string,
@@ -36,6 +37,7 @@ type TripsIndexState = {
     tripData: trips[] | [],
     oneTrip: TripObj,
     showTripCards: boolean,
+    showAdmin: boolean,
 };
 
 export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
@@ -65,21 +67,8 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
                 userId: 0,
             },
             showTripCards: true,
+            showAdmin: false,
         }
-    }
-
-    toggleAddModal = () => {
-        this.setState({
-            showAddModal: !this.state.showAddModal,
-        })
-    }
-    toggleEditModal = () => {
-        this.setState({
-            showEditModal: !this.state.showEditModal,
-        })
-    }
-    toggleTripCards = () => {
-        this.setState({ showTripCards: !this.state.showTripCards })
     }
 
     fetchTrips = () => {
@@ -153,6 +142,9 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
                     oneTrip={this.state.oneTrip}
                     showTripCards={this.state.showTripCards}
                     toggleTripCards={this.toggleTripCards}
+                    userRole={this.props.userRole}
+                    showAdmin={this.state.showAdmin}
+                    toggleAdmin={this.toggleAdmin}
                 />
                 {this.state.updateActive
                     ? <TripEdit
@@ -202,5 +194,24 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
     }
     updateOff = () => {
         this.setState({ updateActive: false })
+    }
+    toggleAddModal = () => {
+        this.setState({
+            showAddModal: !this.state.showAddModal,
+        })
+    }
+    toggleEditModal = () => {
+        this.setState({
+            showEditModal: !this.state.showEditModal,
+        })
+    }
+    toggleTripCards = () => {
+        this.setState({ showTripCards: !this.state.showTripCards })
+    }
+    toggleAdmin = () => {
+        this.setState({ 
+            showAdmin: !this.state.showAdmin,
+            showTripCards: !this.state.showTripCards,
+        })
     }
 }

@@ -12,10 +12,6 @@ export const Wrapper = styled.div`
     font-family: Montserrat, sans-serif;
     background-color: rgba(199,211,175,1);
 
-    /* div.btn-links {
-        position: absolute;
-    } */
-
     button.logo {
         margin-left: 0.25em;
         z-index: 2;
@@ -29,14 +25,6 @@ export const Wrapper = styled.div`
         font-weight: 900;
         cursor: pointer;
     }
-    /* button.links {
-        background-color: transparent;
-        border: none;
-        color: whitesmoke;
-        font-family: Montserrat, sans-serif;
-        font-size: 1.5em;
-        font-weight: 600;
-    } */
 
     div.navbar {
         background-color: rgba(199,211,175,1);
