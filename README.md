@@ -1,6 +1,6 @@
 # explore the haze
 
-(https://github.com/jlai723/haze-client/blob/c5190ed73c3204ce9accf1b87a101f02dc881d0f/src/components/assets/haze-landing-page.JPG)
+![haze_photo](https://github.com/jlai723/haze-client/blob/c5190ed73c3204ce9accf1b87a101f02dc881d0f/src/components/assets/haze-landing-page.JPG)
 
 ## deployed project
 the final version deployed to heroku can be found at [insert link here].
