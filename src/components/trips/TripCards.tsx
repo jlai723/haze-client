@@ -68,9 +68,9 @@ export class TripCards extends Component<TripCardsProps, TripCardsState> {
                                             })}
                                         </p>
                                         <div className="btns">
-                                            <button onClick={() => { this.props.updateTrip(trip.id); this.props.fetchOneTrip(); this.props.toggleTripCards() }}>view</button>
-                                            <button onClick={() => { this.props.updateTrip(trip.id); this.editBtn() }}>edit</button>
-                                            <button onClick={() => { this.props.updateTrip(trip.id); this.props.deleteTrip() }}>delete</button>
+                                            <button className="card-btn" onClick={() => { this.props.updateTrip(trip.id); this.props.fetchOneTrip(); this.props.toggleTripCards() }}>view</button>
+                                            <button className="card-btn" onClick={() => { this.props.updateTrip(trip.id); this.editBtn() }}>edit</button>
+                                            <button className="card-btn" onClick={() => { this.props.updateTrip(trip.id); this.props.deleteTrip() }}>delete</button>
                                         </div>
                                     </CardItemWrapper>
                                 )

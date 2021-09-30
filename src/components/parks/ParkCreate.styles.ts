@@ -21,7 +21,10 @@ export const Wrapper = styled.div`
     }
     img {
         min-width: 100vw;
+        max-width: 100vw;
+        min-height: 40vh;
         max-height: 40vh;
+        object-fit: cover;
     }
 
     div.park-info {
@@ -32,6 +35,7 @@ export const Wrapper = styled.div`
         margin-right: 1em;
     }
     p {
+        font-size: 1.15em;
         font-weight: 600;
         margin: 0.5em 0;
     }
@@ -64,11 +68,9 @@ export const Wrapper = styled.div`
         height: 2em;
     }
     button.cancel {
-        position: absolute;
-        bottom: -6.35em;
-        left: 17.5em;
         background-color: rgba(107,129,117,1);
         width: 5em;
         height: 2em;
+        margin-top: 1em;
     }
 `

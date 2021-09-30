@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-import { Wrapper } from './ParkDisplay.styles';
-import { CardWrapper, CardItemWrapper } from '../trips/TripCards.styles';
+import { CardWrapper, CardItemWrapper } from './ParkDisplay.styles';
 import { ParkCreate } from './ParkCreate';
 import { natlPark, activity, address, email, phone, eFee, pass, fee, image, oHours, except, topic } from '../types/natlParkType';
 import { ParkDetails } from './ParkDetails';
@@ -97,53 +96,40 @@ export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
         }
     }
 
-    fetchInfo = () => {
-        fetch(`http://https://developer.nps.gov/api/v1/parks?parkCode=${this.state.parkCode}&api_key=HhkxS8ZdTvnrdnu3zsQUEUzYbunbFcicTxvvQBPK`)
-            .then(res => {
-                if (res.status !== 200) {
-                    throw new Error('Fetch Error');
-                } else return res.json()
-            })
-            .then(json => { console.log(json) })
-            .catch(err => console.log(err))
-    }
-
     render() {
         return (
             <div>
                 {(this.props.showParkSearchDisplay) ?
-                <CardWrapper>
-                    {this.props.queriedParks.map((park) => {
-                        return (
-                            <CardItemWrapper>
-                                <Wrapper>
-                                <div className="park-title">
-                                    <h2>{park.fullName.toLowerCase()}</h2>
-                                    <h5>{park.addresses[0].line1.toLowerCase()}, {park.addresses[0].city.toLowerCase()}, {park.addresses[0].stateCode.toLowerCase()} {park.addresses[0].postalCode}</h5>
-                                </div>
-                                <a href={park.url} target="_blank" rel="noreferrer"><img src={park.images[0].url} alt={park.images[0].altText} /></a>
-                                <div className="park-search-btns">
-                                <button onClick={() => {
-                                    this.selectPark(park);
-                                    this.props.toggleParkDetails();
-                                    // console.log(park);
-                                    // this.fetchInfo();
-                                }}>view</button>
-                                <button onClick={() => {
-                                    this.props.toggleParkCreate();
-                                    this.selectParkName(park.fullName.toLowerCase());
-                                    this.selectParkAddress(`${park.addresses[0].line1.toLowerCase()}, ${park.addresses[0].city.toLowerCase()}, ${park.addresses[0].stateCode.toLowerCase()} ${park.addresses[0].postalCode}`);
-                                    this.selectParkImage(park.images[0].url);
-                                    this.selectImgAlt(park.images[0].altText);
-                                    this.selectparkCode(park.parkCode);
-                                    this.selectParkUrl(park.url);
-                                }}>add to trip</button>
-                                </div>
-                                </Wrapper>
-                            </CardItemWrapper>
-                        )
-                    })} 
-                </CardWrapper> :
+                    <CardWrapper>
+                        {this.props.queriedParks.map((park) => {
+                            return (
+                                <CardItemWrapper>
+                                        <div className="park-title">
+                                            <h2>{park.fullName.toLowerCase()}</h2>
+                                            <h5>{park.addresses[0].line1.toLowerCase()}, {park.addresses[0].city.toLowerCase()}, {park.addresses[0].stateCode.toLowerCase()} {park.addresses[0].postalCode}</h5>
+                                        </div>
+                                        <div className="image">
+                                        <a href={park.url} target="_blank" rel="noreferrer"><img src={park.images[0].url} alt={park.images[0].altText} /></a>
+                                        </div>
+                                        <div className="park-search-btns">
+                                            <button onClick={() => {
+                                                this.selectPark(park);
+                                                this.props.toggleParkDetails();
+                                            }}>view</button>
+                                            <button onClick={() => {
+                                                this.props.toggleParkCreate();
+                                                this.selectParkName(park.fullName.toLowerCase());
+                                                this.selectParkAddress(`${park.addresses[0].line1.toLowerCase()}, ${park.addresses[0].city.toLowerCase()}, ${park.addresses[0].stateCode.toLowerCase()} ${park.addresses[0].postalCode}`);
+                                                this.selectParkImage(park.images[0].url);
+                                                this.selectImgAlt(park.images[0].altText);
+                                                this.selectparkCode(park.parkCode);
+                                                this.selectParkUrl(park.url);
+                                            }}>add to trip</button>
+                                        </div>
+                                </CardItemWrapper>
+                            )
+                        })}
+                    </CardWrapper> :
                     // (this.props.showParkSearchDisplay && this.props.queriedParks === []) ?
                     // <p>{`No results found that match ${this.props.query}`}</p> :
                     (this.props.showParkCreate && !this.props.showParkSearchDisplay && !this.props.showParkDetails) ?

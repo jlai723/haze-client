@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { Background, ModalWrapper, ModalContent, CloseModalBtn } from '../trips/TripEdit.styles';
+import { EditParkInfoWrapper } from './ParkEdit.styles';
 
 type ParkEditProps = {
     tripId: number,
@@ -24,7 +25,7 @@ type ParkEditProps = {
     fetchOneTrip(): void,
 }
 
-export class ParkEdit extends Component <ParkEditProps, {}> {
+export class ParkEdit extends Component<ParkEditProps, {}> {
     myRef: React.RefObject<HTMLDivElement>;
     constructor(props: ParkEditProps) {
         super(props);
@@ -43,12 +44,12 @@ export class ParkEdit extends Component <ParkEditProps, {}> {
                 'Authorization': `Bearer ${this.props.token}`
             })
         }).then((res) => res.json())
-        .then((onePark) => {
-            if (onePark !== null) {
-                this.props.setName(onePark.parkName);
-                this.props.setAddress(onePark.parkAddress);
-            }
-        })
+            .then((onePark) => {
+                if (onePark !== null) {
+                    this.props.setName(onePark.parkName);
+                    this.props.setAddress(onePark.parkAddress);
+                }
+            })
     }
 
     submitParkEdit = (e: React.FormEvent) => {
@@ -85,17 +86,19 @@ export class ParkEdit extends Component <ParkEditProps, {}> {
         this.props.toggleEditModal();
         this.props.updateOff();
     }
-    
+
     render() {
-        return(
+        return (
             <>
                 {this.props.showEditModal ? (
                     <Background ref={this.myRef} onClick={this.closeModal}>
                         <ModalWrapper>
                             <ModalContent>
-                                <h3>edit your park</h3>
-                                <p>name: {this.props.name}</p>
-                                <p>address: {this.props.address}</p>
+                                <EditParkInfoWrapper>
+                                    <h3>edit your park</h3>
+                                    <p>name: {this.props.name}</p>
+                                    <p className="park-address">address: {this.props.address}</p>
+                                </EditParkInfoWrapper>
                                 <form onSubmit={this.submitParkEdit}>
                                     <label>edit start date: </label>
                                     <input type="date" onChange={(e) => this.props.setSDate(e.target.value)}></input>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
+import { Wrapper } from '../trips/TripView.styles';
 import { ParkEdit } from './ParkEdit';
 import { TripObj } from "../trips/TripsIndex";
 
@@ -89,23 +89,30 @@ export class ParkView extends Component<ParkViewProps, ParkViewState> {
 
     render() {
         return (
-            <div>
-                <button onClick={this.props.toggleParkView}>back</button>
-                <img src={this.state.parkImage} alt={this.state.parkImageAlt} />
-                <h2>{this.state.parkName}</h2>
-                <h4>{this.props.convertDate(this.state.parkStartDate)} - {this.props.convertDate(this.state.parkEndDate)}</h4>
-                <h4>{this.state.parkAddress}</h4>
-                <a href={this.state.parkUrl} target="_blank" rel="noreferrer">visit their site</a>
-                <p>my notes: {this.state.parkNotes}</p>
-                <button>view park details</button>
-                <button onClick={() => {
-                    this.props.updateOn();
-                    this.props.toggleEditModal();
-                }}>edit</button>
-                <button onClick={() => {
-                    this.props.deletePark();
-                    window.location.reload();
-                }}>delete</button>
+            <Wrapper>
+                <button className="nav-back" onClick={this.props.toggleParkView}>back</button>
+                <div className="image-trip-overlap">
+                    <a href={this.state.parkUrl} target="_blank" rel="noreferrer">
+                        <img src={this.state.parkImage} alt={this.state.parkImageAlt} />
+                    </a>
+                    <div className="park-overlap">
+                        <h2>{this.state.parkName}</h2>
+                        <h4>{this.props.convertDate(this.state.parkStartDate)} - {this.props.convertDate(this.state.parkEndDate)}</h4>
+                        <h4>{this.state.parkAddress}</h4>
+                    </div>
+                </div>
+                <p className="park-notes">my notes: {this.state.parkNotes}</p>
+                <div className="park-btns">
+                    {/* <button className="view-park-btn">view park details</button> */}
+                    <button className="edit-park-btn" onClick={() => {
+                        this.props.updateOn();
+                        this.props.toggleEditModal();
+                    }}>edit</button>
+                    <button className="delete-park-btn" onClick={() => {
+                        this.props.deletePark();
+                        window.location.reload();
+                    }}>delete</button>
+                </div>
                 {this.props.updateActive ?
                     <ParkEdit
                         tripId={this.props.tripId}
@@ -130,7 +137,7 @@ export class ParkView extends Component<ParkViewProps, ParkViewState> {
                     /> :
                     <></>
                 }
-            </div>
+            </Wrapper>
         )
     }
 }

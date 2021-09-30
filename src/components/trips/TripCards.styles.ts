@@ -66,7 +66,7 @@ export const CardItemWrapper = styled.div`
         justify-content: flex-end;
         margin-bottom: 0.5em;
     }
-    button {
+    button.card-btn {
         margin-right: 0.5em;
         height: 2em;
         background-color: transparent;

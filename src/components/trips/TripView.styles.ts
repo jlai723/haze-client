@@ -34,7 +34,10 @@ export const Wrapper = styled.div`
     }
     img {
         min-width: 100vw;
+        max-width: 100vw;
+        min-height: 40vh;
         max-height: 40vh;
+        object-fit: cover;
     }
     .image-trip-overlap {
         position: relative;
@@ -44,14 +47,48 @@ export const Wrapper = styled.div`
         position: absolute;
         top: 20vh;
     }
+    .park-overlap {
+        position: absolute;
+        top: 20vh;
+        margin-left: 1em;
+    }
     .trip-notes {
         margin: 0.25em 1em;
+    }
+    .park-notes {
+        color: rgba(107,129,117,1);
+        font-size: 1em;
+        font-weight: 600;
+        margin-left: 1em;
     }
     h1.trip-notes {
         margin: 0.25em 0.5em;
     }
     h3.trip-notes {
         margin: 0.5em 0.8em;
+    }
+    div.park-btns {
+        display: flex;
+        justify-content: flex-end;
+    }
+    button {
+        background-color: rgba(107,129,117,1);
+        color: whitesmoke;
+        font-size: 1em;
+        font-weight: 700;
+        border: none;
+        border-radius: 0.3rem;
+        height: 2em;
+        margin-right: 0.5em;
+    }
+    .view-park-btn {
+        width: 10em;
+    }
+    .edit-park-btn {
+        width: 3em;
+    }
+    .delete-park-btn {
+        width: 4em;
     }
 `
 

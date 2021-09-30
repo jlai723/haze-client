@@ -109,9 +109,9 @@ export class TripView extends Component<TripViewProps, TripViewState> {
                                         <p className="park-name">{park.parkName}</p>
                                         <p>{this.props.convertDate(park.parkStartDate)} - {this.props.convertDate(park.parkEndDate)}</p>
                                         <div className="btns">
-                                            <button onClick={() => { this.toggleParkView(); this.setParkId(park.id) }}>view</button>
-                                            <button onClick={() => { this.setParkId(park.id); this.editBtn() }}>edit</button>
-                                            <button onClick={() => { this.setParkId(park.id); this.deletePark() }}>delete</button>
+                                            <button className="card-btn" onClick={() => { this.toggleParkView(); this.setParkId(park.id) }}>view</button>
+                                            <button className="card-btn" onClick={() => { this.setParkId(park.id); this.editBtn() }}>edit</button>
+                                            <button className="card-btn" onClick={() => { this.setParkId(park.id); this.deletePark() }}>delete</button>
                                         </div>
                                     </CardItemWrapper>
                                 )
