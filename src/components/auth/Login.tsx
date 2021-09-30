@@ -25,7 +25,6 @@ export class Login extends Component<LoginProps, LoginState> {
 
     handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        try {
             fetch("http://localhost:3000/user/login", {
                 method: 'POST',
                 body: JSON.stringify({ user: { username: this.props.username, password: this.props.password } }),
@@ -34,9 +33,7 @@ export class Login extends Component<LoginProps, LoginState> {
                 })
             }).then(res => res.json())
                 .then(data => { this.props.updateToken(data.sessionToken) })
-        } catch (err) {
-            console.log(err);
-        }
+                .catch(err => console.log(err))
     };
 
     render() {
