@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
-import { Wrapper, NavWrapper } from './Header.styles';
+import { Wrapper } from './Header.styles';
 
 type HeaderProps = {
     logout(): void,
-    updateToken(newToken: string): void,
     token: string | null,
 }
 type HeaderState = {
@@ -27,7 +26,6 @@ export class Header extends Component<HeaderProps, HeaderState> {
     }
 
     render() {
-        // if (this.props.token) return <Redirect to="/" />
         let navBtn = { color: "whitesmoke" }
         return (
             <div>
@@ -51,13 +49,8 @@ export class Header extends Component<HeaderProps, HeaderState> {
                                 </Link>
                             </li>
                             <li className="nav-text">
-                                <Link to="/profile">
-                                    <span>my profile</span>
-                                </Link>
-                            </li>
-                            <li className="nav-text">
                                 <Link to="/trips">
-                                    <span>my trips</span>
+                                    <span onClick={() => window.location.reload()}>my trips</span>
                                 </Link>
                             </li>
                             <li className="nav-text">
@@ -70,13 +63,6 @@ export class Header extends Component<HeaderProps, HeaderState> {
                             </li>
                         </ul>
                     </nav>
-                    {/* <div className="btn-links">
-                        <button className="links">home</button>
-                        <button className="links">my profile</button>
-                        <button className="links">my trips</button>
-                        <button className="links">admin dashboard</button>
-                        <button className="links" onClick={this.props.logout}>logout</button>
-                    </div> */}
                 </Wrapper>
             </div>
         )

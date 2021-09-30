@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 
 import { Wrapper } from './ParkSearch.styles';
 import { ParkDisplay } from './ParkDisplay';

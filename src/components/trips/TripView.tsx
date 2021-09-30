@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import * as BsIcons from 'react-icons/bs';
 
 import img1 from '../assets/trip-image-1.jpg';
 import img2 from '../assets/trip-image-2.jpg';
@@ -11,8 +10,6 @@ import img6 from '../assets/trip-image-6.jpg';
 import { Wrapper } from './TripView.styles';
 import { CardWrapper, CardItemWrapper } from './TripCards.styles';
 import { ParkView, ParkSearch } from '../parks';
-import { trips } from '../types/tripType';
-import { park } from '../types/parkType';
 import { TripObj } from './TripsIndex';
 import { ParkEdit } from '../parks/ParkEdit';
 
@@ -83,18 +80,18 @@ export class TripView extends Component<TripViewProps, TripViewState> {
                         <button className="nav-add" onClick={this.toggleParkSearch}>add park</button>
                         <div className="image-trip-overlap">
                             {(this.props.oneTrip.tripImage !== "") ?
-                                <img src={this.props.oneTrip.tripImage} /> :
+                                <img src={this.props.oneTrip.tripImage} alt="trip" /> :
                                 ((this.props.oneTrip.id % 2 === 0) && (this.props.oneTrip.id % 4 !== 0)) ?
-                                    <img src={img2} /> :
+                                    <img src={img2} alt="trip" /> :
                                     ((this.props.oneTrip.id % 3 === 0) && (this.props.oneTrip.id % 6 !== 0)) ?
-                                        <img src={img3} /> :
+                                        <img src={img3} alt="trip" /> :
                                         (this.props.oneTrip.id % 4 === 0) ?
-                                            <img src={img4} /> :
+                                            <img src={img4} alt="trip" /> :
                                             (this.props.oneTrip.id % 5 === 0) ?
-                                                <img src={img5} /> :
+                                                <img src={img5} alt="trip" /> :
                                                 (this.props.oneTrip.id % 6 === 0) ?
-                                                    <img src={img6} /> :
-                                                    <img src={img1} />
+                                                    <img src={img6} alt="trip" /> :
+                                                    <img src={img1} alt="trip" />
                             }
                             <div className="trip-overlap">
                                 <h1 className="trip-notes">{this.props.oneTrip.tripName}</h1>

@@ -6,9 +6,11 @@ export type natlPark = {
         phoneNumbers: phone[] | []
         description: string
         designation: string
-        directionsInfo: string
-        directionsUrl: string
     }
+    description: string
+    designation: string
+    directionsInfo: string
+    directionsUrl: string
     entranceFees: eFee[] | []
     entrancePasses: pass[] | []
     fees: fee[] | []

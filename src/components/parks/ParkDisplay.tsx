@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { CardWrapper, CardItemWrapper } from './ParkDisplay.styles';
 import { ParkCreate } from './ParkCreate';
-import { natlPark, activity, address, email, phone, eFee, pass, fee, image, oHours, except, topic } from '../types/natlParkType';
+import { natlPark, activity, address, email, phone, eFee, pass, fee, image, oHours, topic } from '../types/natlParkType';
 import { ParkDetails } from './ParkDetails';
 
 export interface ParkObj {
@@ -13,9 +13,11 @@ export interface ParkObj {
         phoneNumbers: phone[] | []
         description: string
         designation: string
-        directionsInfo: string
-        directionsUrl: string
     }
+    description: string
+    designation: string
+    directionsInfo: string
+    directionsUrl: string
     entranceFees: eFee[] | []
     entrancePasses: pass[] | []
     fees: fee[] | []
@@ -73,9 +75,11 @@ export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
                     phoneNumbers: [],
                     description: "",
                     designation: "",
-                    directionsInfo: "",
-                    directionsUrl: "",
                 },
+                description: "",
+                designation: "",
+                directionsInfo: "",
+                directionsUrl: "",
                 entranceFees: [],
                 entrancePasses: [],
                 fees: [],
@@ -130,8 +134,6 @@ export class ParkDisplay extends Component<ParkDisplayProps, ParkDisplayState> {
                             )
                         })}
                     </CardWrapper> :
-                    // (this.props.showParkSearchDisplay && this.props.queriedParks === []) ?
-                    // <p>{`No results found that match ${this.props.query}`}</p> :
                     (this.props.showParkCreate && !this.props.showParkSearchDisplay && !this.props.showParkDetails) ?
                         <ParkCreate
                             parkName={this.state.selectedParkName}

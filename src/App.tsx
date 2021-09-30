@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-// import './App.css';
-import { Link, Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import { Header, Footer } from './components/common';
 import { Portal } from './components/auth';
 import { TripsIndex } from './components/trips';
-import { ParkSearch } from './components/parks';
-import { UserProfile } from './components/profile/UserProfile';
 import { AdminDashboard } from './components/admin/AdminDashboard';
 
 type AppProps = {};
@@ -60,8 +57,7 @@ class App extends Component<AppProps, AppState> {
   render() {
     return (
       <div>
-        <Header logout={this.clearToken} updateToken={this.updateToken} token={this.state.sessionToken} />
-        {/* {(this.state.sessionToken === localStorage.getItem('token')) ? <TripsIndex sessionToken={this.state.sessionToken} /> : <Portal updateToken={this.updateToken} sessionToken={this.state.sessionToken} />} */}
+        <Header logout={this.clearToken} token={this.state.sessionToken} />
         <Switch>
           <Route exact path="/">
             <Portal updateToken={this.updateToken} sessionToken={this.state.sessionToken} />
@@ -69,9 +65,6 @@ class App extends Component<AppProps, AppState> {
           <Route exact path="/trips">
             <TripsIndex sessionToken={this.state.sessionToken} />
           </Route>
-          <Route exact path="/profile">
-            <UserProfile />
-          </Route> 
           <Route exact path="/admin">
             <AdminDashboard />
           </Route> 

@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom';
 import { LandingPage } from './LandingPage';
 import { Login } from './Login';
 import { Register } from './Register';
-import { TripsIndex } from '../trips'
 
 type PortalProps = {
     updateToken(newToken: string): void,
