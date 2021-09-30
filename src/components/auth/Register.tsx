@@ -25,6 +25,7 @@ type RegisterState = {
     hidePassword: string,
     hideCPassword: string,
     failMsg: string,
+    status: number,
 }
 
 export class Register extends Component<RegisterProps, RegisterState> {
@@ -34,6 +35,7 @@ export class Register extends Component<RegisterProps, RegisterState> {
             hidePassword: "password",
             hideCPassword: "password",
             failMsg: "",
+            status: 0,
         }
     }
 
@@ -49,7 +51,7 @@ export class Register extends Component<RegisterProps, RegisterState> {
             }).then(res => res.json())
                 .then(data => { this.props.updateToken(data.sessionToken) })
         } catch (err) {
-            console.info(err);
+            console.log(err);
         }
     }
 

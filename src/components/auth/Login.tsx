@@ -35,7 +35,7 @@ export class Login extends Component<LoginProps, LoginState> {
             }).then(res => res.json())
                 .then(data => { this.props.updateToken(data.sessionToken) })
         } catch (err) {
-            console.info(err);
+            console.log(err);
         }
     };
 
