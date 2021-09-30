@@ -39,14 +39,18 @@ export class Register extends Component<RegisterProps, RegisterState> {
 
     handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        fetch("http://localhost:3000/user/register", {
-            method: 'POST',
-            body: JSON.stringify({ user: { firstName: this.props.firstName, lastName: this.props.lastName, username: this.props.username, email: this.props.email, password: this.props.password, role: this.props.role } }),
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            })
-        }).then(res => res.json())
-            .then(data => { this.props.updateToken(data.sessionToken) })
+        try {
+            fetch("http://localhost:3000/user/register", {
+                method: 'POST',
+                body: JSON.stringify({ user: { firstName: this.props.firstName, lastName: this.props.lastName, username: this.props.username, email: this.props.email, password: this.props.password, role: this.props.role } }),
+                headers: new Headers({
+                    'Content-Type': 'application/json'
+                })
+            }).then(res => res.json())
+                .then(data => { this.props.updateToken(data.sessionToken) })
+        } catch (err) {
+            console.info(err);
+        }
     }
 
     render() {

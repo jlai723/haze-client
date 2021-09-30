@@ -25,14 +25,18 @@ export class Login extends Component<LoginProps, LoginState> {
 
     handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        fetch("http://localhost:3000/user/login", {
-            method: 'POST',
-            body: JSON.stringify({ user: { username: this.props.username, password: this.props.password } }),
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            })
-        }).then(res => res.json())
-            .then(data => { this.props.updateToken(data.sessionToken); console.log(data.user.role) })
+        try {
+            fetch("http://localhost:3000/user/login", {
+                method: 'POST',
+                body: JSON.stringify({ user: { username: this.props.username, password: this.props.password } }),
+                headers: new Headers({
+                    'Content-Type': 'application/json'
+                })
+            }).then(res => res.json())
+                .then(data => { this.props.updateToken(data.sessionToken) })
+        } catch (err) {
+            console.info(err);
+        }
     };
 
     render() {
