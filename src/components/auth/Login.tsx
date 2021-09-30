@@ -32,7 +32,7 @@ export class Login extends Component<LoginProps, LoginState> {
                 'Content-Type': 'application/json'
             })
         }).then(res => res.json())
-            .then(data => { this.props.updateToken(data.sessionToken) })
+            .then(data => { this.props.updateToken(data.sessionToken); console.log(data.user.role) })
     };
 
     render() {

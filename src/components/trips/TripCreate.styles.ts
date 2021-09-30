@@ -70,6 +70,9 @@ export const ModalContent = styled.div`
     input[type="date"]::-webkit-inner-spin-button {
         background-color: green;
     }
+    input:focus {
+        outline: none;
+    }
     button {  
         height: 2em;
         width: 3.5em;

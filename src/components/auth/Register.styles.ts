@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     font-family: Montserrat, sans-serif;
-    padding-top: 8vh;
+    padding-top: 10vh;
     padding-bottom: 15vh;
     margin: 0;
     max-width: 100%;
@@ -75,6 +75,10 @@ export const Wrapper = styled.div`
         justify-content: flex-end;
         cursor: pointer;
     }
+    .eye:focus {
+        outline: none;
+        box-shadow: none;
+    }
 
     a {
         font-size: 0.9em;
@@ -96,5 +100,10 @@ export const Wrapper = styled.div`
         border-radius: 0.75rem;
         height: 2.5em;
         margin-top: 1em;
+    }
+    p {
+        width: 100vw;
+        color: red;
+        font-weight: 700;
     }
 `;

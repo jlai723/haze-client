@@ -9,7 +9,6 @@ import { AdminDashboard } from './components/admin/AdminDashboard';
 type AppProps = {};
 type AppState = {
   sessionToken: string | null,
-  role: string | null,
 };
 
 class App extends Component<AppProps, AppState> {
@@ -17,7 +16,6 @@ class App extends Component<AppProps, AppState> {
     super(props);
     this.state = {
       sessionToken: '',
-      role: '',
     }
   }
 
@@ -27,23 +25,12 @@ class App extends Component<AppProps, AppState> {
         sessionToken: localStorage.getItem('token'),
       })
     };
-    if (localStorage.getItem('role')) {
-      this.setState({
-        role: localStorage.getItem('role'),
-      })
-    };
   }
 
   updateToken = (newToken: string) => {
     localStorage.setItem('token', newToken);
     this.setState({
       sessionToken: newToken,
-    });
-  }
-  updateRole = (newRole: string) => {
-    localStorage.setItem('role', newRole);
-    this.setState({
-      role: newRole,
     });
   }
 

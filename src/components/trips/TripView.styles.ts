@@ -51,6 +51,10 @@ export const Wrapper = styled.div`
         position: absolute;
         top: 20vh;
         margin-left: 1em;
+        margin-right: 1em;
+    }
+    .park-info {
+        margin: 0;
     }
     .trip-notes {
         margin: 0.25em 1em;

@@ -24,14 +24,16 @@ type RegisterProps = {
 type RegisterState = {
     hidePassword: string,
     hideCPassword: string,
+    failMsg: string,
 }
 
-export class Register extends Component <RegisterProps, RegisterState> {
+export class Register extends Component<RegisterProps, RegisterState> {
     constructor(props: RegisterProps) {
         super(props);
         this.state = {
             hidePassword: "password",
             hideCPassword: "password",
+            failMsg: "",
         }
     }
 
@@ -44,23 +46,30 @@ export class Register extends Component <RegisterProps, RegisterState> {
                 'Content-Type': 'application/json'
             })
         }).then(res => res.json())
-        .then(data => { this.props.updateToken(data.sessionToken) })
+            .then(data => { this.props.updateToken(data.sessionToken) })
     }
 
     render() {
         let passwordStyle = { height: "1.5em", width: "1.5em" }
-        return(
+        return (
             <Wrapper>
                 <h2>create</h2>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={(e) => {
+                    if (this.props.password === this.props.cPassword) {
+                        this.handleSubmit(e);
+                    } else {
+                        e.preventDefault();
+                        this.setFailMsg();
+                    }
+                }}>
                     <label>first name</label>
-                    <input required onChange={(e) => {this.props.setFirstName(e.target.value)}}></input>
+                    <input required onChange={(e) => { this.props.setFirstName(e.target.value) }}></input>
                     <label>last name</label>
-                    <input required onChange={(e) => {this.props.setLastName(e.target.value)}}></input>
+                    <input required onChange={(e) => { this.props.setLastName(e.target.value) }}></input>
                     <label>email</label>
-                    <input required onChange={(e) => {this.props.setEmail(e.target.value)}}></input>
+                    <input required onChange={(e) => { this.props.setEmail(e.target.value) }}></input>
                     <label>username</label>
-                    <input required onChange={(e) => {this.props.setUsername(e.target.value)}}></input>
+                    <input required onChange={(e) => { this.props.setUsername(e.target.value) }}></input>
                     <label>password</label>
                     {(this.state.hidePassword === "password") ?
                         <button className="eye" onClick={(e) => {
@@ -72,7 +81,7 @@ export class Register extends Component <RegisterProps, RegisterState> {
                             e.preventDefault();
                         }}><BsFillEyeSlashFill style={passwordStyle} /></button>
                     }
-                    <input required type={this.state.hidePassword} onChange={(e) => {this.props.setPassword(e.target.value)}}></input>
+                    <input required type={this.state.hidePassword} onChange={(e) => { this.props.setPassword(e.target.value) }}></input>
                     <label>confirm password</label>
                     {(this.state.hideCPassword === "password") ?
                         <button className="eye" onClick={(e) => {
@@ -84,12 +93,16 @@ export class Register extends Component <RegisterProps, RegisterState> {
                             e.preventDefault();
                         }}><BsFillEyeSlashFill style={passwordStyle} /></button>
                     }
-                    <input required type={this.state.hideCPassword} onChange={(e) => {this.props.setCPassword(e.target.value)}}></input>
+                    <input required type={this.state.hideCPassword} onChange={(e) => { this.props.setCPassword(e.target.value) }}></input>
                     <label>role</label>
-                    <select required onChange={(e) => {this.props.setRole(e.target.value)}}>
+                    <select required onChange={(e) => { this.props.setRole(e.target.value) }}>
                         <option value="user">user</option>
                         <option value="admin">admin</option>
                     </select>
+                    {this.state.failMsg !== "" ?
+                        <p>{this.state.failMsg}</p> :
+                        <></>
+                    }
                     <button className="submit" type="submit">create</button>
                 </form>
                 <a onClick={this.props.toggleToLogin}>already have an account?</a>
@@ -109,5 +122,7 @@ export class Register extends Component <RegisterProps, RegisterState> {
     hideCPassword = () => {
         this.setState({ hideCPassword: "password" })
     }
-
+    setFailMsg = () => {
+        this.setState({ failMsg: "passwords do not match" })
+    }
 }

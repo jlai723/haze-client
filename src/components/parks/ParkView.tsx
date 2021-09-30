@@ -96,9 +96,9 @@ export class ParkView extends Component<ParkViewProps, ParkViewState> {
                         <img src={this.state.parkImage} alt={this.state.parkImageAlt} />
                     </a>
                     <div className="park-overlap">
-                        <h2>{this.state.parkName}</h2>
-                        <h4>{this.props.convertDate(this.state.parkStartDate)} - {this.props.convertDate(this.state.parkEndDate)}</h4>
-                        <h4>{this.state.parkAddress}</h4>
+                        <h2 className="park-info">{this.state.parkName}</h2>
+                        <h4 className="park-info">{this.props.convertDate(this.state.parkStartDate)} - {this.props.convertDate(this.state.parkEndDate)}</h4>
+                        <h4 className="park-info">{this.state.parkAddress}</h4>
                     </div>
                 </div>
                 <p className="park-notes">my notes: {this.state.parkNotes}</p>

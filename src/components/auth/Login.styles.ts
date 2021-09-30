@@ -73,6 +73,10 @@ export const Wrapper = styled.div`
         justify-content: flex-end;
         cursor: pointer;
     }
+    .eye:focus {
+        outline: none;
+        box-shadow: none;
+    }
 
     a {
         font-size: 0.9em;
