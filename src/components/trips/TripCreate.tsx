@@ -46,7 +46,8 @@ export class TripCreate extends Component<TripCreateProps, {}> {
             })
         }).then(res => res.json())
             .then(() => {
-                this.props.fetchTrips()
+                this.props.fetchTrips();
+                this.props.toggleAddModal();
             })
     }
 
