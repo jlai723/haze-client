@@ -17,6 +17,7 @@ type TripCreateProps = {
     setNotes(newNotes: string): void,
     showAddModal: boolean,
     toggleAddModal(): void,
+    fetchTrips(): void,
 }
 
 export class TripCreate extends Component<TripCreateProps, {}> {
@@ -27,6 +28,7 @@ export class TripCreate extends Component<TripCreateProps, {}> {
     }
 
     handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
         fetch(`${APIURL}/trip/create`, {
             method: 'POST',
             body: JSON.stringify({
@@ -43,8 +45,8 @@ export class TripCreate extends Component<TripCreateProps, {}> {
                 'Authorization': `Bearer ${this.props.token}`,
             })
         }).then(res => res.json())
-            .then((data) => {
-                console.log(data)
+            .then(() => {
+                this.props.fetchTrips()
             })
     }
 

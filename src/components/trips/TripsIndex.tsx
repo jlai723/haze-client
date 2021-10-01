@@ -128,6 +128,7 @@ export class TripsIndex extends Component<TripsIndexProps, TripsIndexState> {
                     setNotes={this.setNotes}
                     showAddModal={this.state.showAddModal}
                     toggleAddModal={this.toggleAddModal}
+                    fetchTrips={this.fetchTrips}
                 />
                 <TripCards
                     fetchTrips={this.fetchTrips}
