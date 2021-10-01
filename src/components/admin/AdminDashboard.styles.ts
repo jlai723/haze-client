@@ -12,12 +12,13 @@ export const Wrapper = styled.div`
         border: none;
         border-radius: 0.5rem;
         width: 4em;
-        height: 4.5em;
+        height: 2em;
         margin-left: 0.5em;
         margin-bottom: 0.5em;
     }
     .delete-btn {
         width: 8em;
+        height: 4em;
     }
 `
 
