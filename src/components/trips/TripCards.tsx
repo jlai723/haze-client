@@ -110,14 +110,7 @@ export class TripCards extends Component<TripCardsProps, TripCardsState> {
     }
     convertDate = (date: string) => {
         let newDate = new Date(date);
-        console.log(newDate)
-        console.log(newDate.getUTCMonth())
-        console.log(newDate.getUTCDay())
-        console.log(newDate.getUTCFullYear())
-        let formattedDate = `${newDate.getMonth() + 1}/${newDate.getDate()}/${newDate.getFullYear()}`
-        // let newMonth = newDate.getMonth();
-        // let newDay = newDate.getDate();
-        // let newYear = newDate.getFullYear();
+        let formattedDate = `${newDate.getMonth()}/${newDate.getDate()}/${newDate.getFullYear()}`
         return formattedDate;
     }
 }
