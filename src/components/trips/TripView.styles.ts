@@ -108,4 +108,7 @@ export const ParkWrapper = styled.div`
     :nth-child(3) {
         background-color: rgba(67,48,76,1);
     }
+    :nth-child(4) {
+        background-color: rgba(225,185,152,1);
+    }
 `
